@@ -1,0 +1,21 @@
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+
+.main {
+  position: relative;
+  z-index: var(--z-base);
+  /* Content settles in once the preloader has handed over. */
+  opacity: 0;
+  transition: opacity var(--d-slow) var(--e-out-expo);
+}
+
+.main[data-ready="true"] {
+  opacity: 1;
+}
+
+/* Each section sits on its own paint layer so the fixed grain and
+   cursor never force a full-page repaint. */
+.main > section {
+  position: relative;
+}

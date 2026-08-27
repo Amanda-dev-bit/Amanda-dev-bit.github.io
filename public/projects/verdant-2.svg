@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Interface preview">
+  <rect x="0" y="0" width="1600" height="1000" rx="0" fill="#e7ebe2"/>
+  <defs>
+      <filter id="sh1" x="-20%" y="-20%" width="140%" height="150%">
+        <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="rgba(28,22,21,0.16)"/>
+      </filter>
+    </defs>
+    <g filter="url(#sh1)">
+      <rect x="58" y="58" width="1484" height="884" rx="16" fill="#f3f2ec"/>
+    </g>
+    <rect x="58" y="58" width="1484" height="54" rx="16" fill="#ebeae4"/>
+    <rect x="58" y="96" width="1484" height="16" rx="0" fill="#ebeae4"/>
+    <line x1="58" y1="112" x2="1542" y2="112" stroke="rgba(28,22,21,0.1)" stroke-width="1"/>
+    <circle cx="88" cy="85" r="6.5" fill="rgba(28,22,21,0.18)"/>
+    <circle cx="110" cy="85" r="6.5" fill="rgba(28,22,21,0.14)"/>
+    <circle cx="132" cy="85" r="6.5" fill="rgba(28,22,21,0.1)"/>
+    <rect x="630" y="72" width="340" height="26" rx="13" fill="rgba(28,22,21,0.06)"/>
+    <text x="800" y="90" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="rgba(28,22,21,0.45)" text-anchor="middle" letter-spacing="1.4">verdant · plant care</text>
+    <rect x="58" y="58" width="1484" height="884" rx="16" fill="none" stroke="rgba(28,22,21,0.1)"/><rect x="58" y="112" width="1484" height="830" rx="0" fill="#f3f2ec"/><rect x="58" y="112" width="226" height="830" rx="0" fill="#f4f1ed"/><line x1="284" y1="112" x2="284" y2="942" stroke="rgba(28,22,21,0.08)" stroke-width="1"/><circle cx="92" cy="156" r="13" fill="#6f9b74"/><rect x="114" y="149" width="94.9" height="12" rx="6" fill="rgba(28,22,21,0.4)"/><rect x="88" y="210" width="14" height="14" rx="4" fill="rgba(28,22,21,0.22)"/><rect x="114" y="213" width="67.8" height="9" rx="4" fill="rgba(28,22,21,0.18)"/><rect x="88" y="256" width="14" height="14" rx="4" fill="rgba(28,22,21,0.22)"/><rect x="114" y="259" width="104" height="9" rx="4" fill="rgba(28,22,21,0.18)"/><rect x="72" y="292" width="198" height="38" rx="9" fill="rgba(111,155,116,0.14)"/><rect x="88" y="302" width="14" height="14" rx="4" fill="rgba(111,155,116,0.9)"/><rect x="114" y="305" width="140.1" height="9" rx="4" fill="rgba(111,155,116,0.7)"/><rect x="88" y="348" width="14" height="14" rx="4" fill="rgba(28,22,21,0.22)"/><rect x="114" y="351" width="85.9" height="9" rx="4" fill="rgba(28,22,21,0.18)"/><rect x="88" y="394" width="14" height="14" rx="4" fill="rgba(28,22,21,0.22)"/><rect x="114" y="397" width="122" height="9" rx="4" fill="rgba(28,22,21,0.18)"/><rect x="88" y="440" width="14" height="14" rx="4" fill="rgba(28,22,21,0.22)"/><rect x="114" y="443" width="67.8" height="9" rx="4" fill="rgba(28,22,21,0.18)"/><rect x="88" y="486" width="14" height="14" rx="4" fill="rgba(28,22,21,0.22)"/><rect x="114" y="489" width="104" height="9" rx="4" fill="rgba(28,22,21,0.18)"/><text x="328" y="182" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="38" font-weight="300" fill="#1c1615" text-anchor="start" letter-spacing="0">Species library</text><rect x="1198" y="152" width="300" height="44" rx="22" fill="#ffffff"/><rect x="1198" y="152" width="300" height="44" rx="22" fill="none" stroke="rgba(28,22,21,0.12)"/><circle cx="1224" cy="174" r="7" fill="none" stroke="rgba(28,22,21,0.3)" stroke-width="2"/><rect x="1244" y="170" width="140" height="8" rx="4" fill="rgba(28,22,21,0.16)"/><rect x="328" y="216" width="82" height="34" rx="17" fill="#6f9b74"/><rect x="344" y="229" width="50" height="8" rx="4" fill="rgba(255,255,255,0.85)"/><rect x="422" y="216" width="104" height="34" rx="17" fill="rgba(28,22,21,0.06)"/><rect x="438" y="229" width="72" height="8" rx="4" fill="rgba(28,22,21,0.24)"/><rect x="538" y="216" width="92" height="34" rx="17" fill="rgba(28,22,21,0.06)"/><rect x="554" y="229" width="60" height="8" rx="4" fill="rgba(28,22,21,0.24)"/><rect x="642" y="216" width="78" height="34" rx="17" fill="rgba(28,22,21,0.06)"/><rect x="658" y="229" width="46" height="8" rx="4" fill="rgba(28,22,21,0.24)"/><rect x="328" y="280" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="328" y="280" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c3"><rect x="336" y="288" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c3)">
+    <rect x="336" y="288" width="260" height="130" rx="8" fill="url(#g2)"/>
+    <ellipse cx="519.5" cy="367.3" rx="64.6" ry="69.3" fill="rgba(111,155,116,0.3)"/><ellipse cx="489.1" cy="377.4" rx="69.3" ry="43.3" fill="rgba(255,255,255,0.4)"/><ellipse cx="486.8" cy="351.0" rx="74.5" ry="75.6" fill="rgba(111,155,116,0.3)"/>
+    <rect x="336" y="368.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="346" y="434" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="346" y="458" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="626" y="280" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="626" y="280" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c5"><rect x="634" y="288" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c5)">
+    <rect x="634" y="288" width="260" height="130" rx="8" fill="url(#g4)"/>
+    <ellipse cx="689.9" cy="341.1" rx="51.8" ry="55.6" fill="rgba(111,155,116,0.3)"/><ellipse cx="712.3" cy="313.3" rx="38.3" ry="24.1" fill="rgba(255,255,255,0.4)"/><ellipse cx="832.5" cy="315.2" rx="55.2" ry="38.3" fill="rgba(111,155,116,0.3)"/>
+    <rect x="634" y="368.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="644" y="434" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="644" y="458" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="924" y="280" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="924" y="280" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c7"><rect x="932" y="288" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c7)">
+    <rect x="932" y="288" width="260" height="130" rx="8" fill="url(#g6)"/>
+    <ellipse cx="1154.3" cy="345.4" rx="71.7" ry="66.0" fill="rgba(111,155,116,0.3)"/><ellipse cx="1025.9" cy="342.0" rx="73.5" ry="77.7" fill="rgba(255,255,255,0.4)"/><ellipse cx="1002.6" cy="326.1" rx="51.5" ry="49.7" fill="rgba(111,155,116,0.3)"/>
+    <rect x="932" y="368.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="942" y="434" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="942" y="458" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="1222" y="280" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="1222" y="280" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g8" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c9"><rect x="1230" y="288" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c9)">
+    <rect x="1230" y="288" width="260" height="130" rx="8" fill="url(#g8)"/>
+    <ellipse cx="1283.6" cy="367.2" rx="51.3" ry="44.2" fill="rgba(111,155,116,0.3)"/><ellipse cx="1441.4" cy="369.9" rx="49.4" ry="47.0" fill="rgba(255,255,255,0.4)"/><ellipse cx="1439.4" cy="336.3" rx="32.1" ry="27.1" fill="rgba(111,155,116,0.3)"/>
+    <rect x="1230" y="368.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="1240" y="434" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="1240" y="458" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="328" y="530" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="328" y="530" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g10" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c11"><rect x="336" y="538" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c11)">
+    <rect x="336" y="538" width="260" height="130" rx="8" fill="url(#g10)"/>
+    <ellipse cx="398.1" cy="575.1" rx="61.9" ry="59.9" fill="rgba(111,155,116,0.3)"/><ellipse cx="388.5" cy="636.5" rx="51.7" ry="40.0" fill="rgba(255,255,255,0.4)"/><ellipse cx="403.0" cy="644.2" rx="40.2" ry="35.2" fill="rgba(111,155,116,0.3)"/>
+    <rect x="336" y="618.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="346" y="684" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="346" y="708" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="626" y="530" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="626" y="530" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g12" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c13"><rect x="634" y="538" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c13)">
+    <rect x="634" y="538" width="260" height="130" rx="8" fill="url(#g12)"/>
+    <ellipse cx="702.4" cy="632.6" rx="49.1" ry="52.1" fill="rgba(111,155,116,0.3)"/><ellipse cx="857.7" cy="613.2" rx="64.5" ry="56.3" fill="rgba(255,255,255,0.4)"/><ellipse cx="705.0" cy="578.1" rx="39.2" ry="36.2" fill="rgba(111,155,116,0.3)"/>
+    <rect x="634" y="618.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="644" y="684" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="644" y="708" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="924" y="530" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="924" y="530" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g14" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c15"><rect x="932" y="538" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c15)">
+    <rect x="932" y="538" width="260" height="130" rx="8" fill="url(#g14)"/>
+    <ellipse cx="1124.1" cy="630.1" rx="37.3" ry="34.7" fill="rgba(111,155,116,0.3)"/><ellipse cx="1054.4" cy="587.2" rx="37.0" ry="28.8" fill="rgba(255,255,255,0.4)"/><ellipse cx="1081.8" cy="614.3" rx="42.1" ry="30.1" fill="rgba(111,155,116,0.3)"/>
+    <rect x="932" y="618.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="942" y="684" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="942" y="708" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="1222" y="530" width="276" height="226" rx="12" fill="#ffffff"/>
+    <rect x="1222" y="530" width="276" height="226" rx="12" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g16" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#9fbba0"/>
+      <stop offset="1" stop-color="#c6d5c3"/>
+    </linearGradient>
+    <clipPath id="c17"><rect x="1230" y="538" width="260" height="130" rx="8"/></clipPath>
+  </defs>
+  <g clip-path="url(#c17)">
+    <rect x="1230" y="538" width="260" height="130" rx="8" fill="url(#g16)"/>
+    <ellipse cx="1292.5" cy="610.2" rx="57.2" ry="58.0" fill="rgba(111,155,116,0.3)"/><ellipse cx="1314.3" cy="639.5" rx="46.7" ry="37.5" fill="rgba(255,255,255,0.4)"/><ellipse cx="1325.7" cy="613.1" rx="68.5" ry="62.4" fill="rgba(111,155,116,0.3)"/>
+    <rect x="1230" y="618.6" width="260" height="49.4" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="1240" y="684" width="151.8" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="1240" y="708" width="215.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    
+</svg>

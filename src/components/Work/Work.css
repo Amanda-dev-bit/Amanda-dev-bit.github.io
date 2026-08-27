@@ -1,0 +1,1107 @@
+/* ============================================================
+   WORK
+   ============================================================ */
+
+.work {
+  /* Local timing: the cover zoom on hover, and the crossfade between
+     covers in the floating index preview. */
+  --work-zoom: 900ms;
+  --work-swap: 450ms;
+  overflow: clip;
+}
+
+/* ---- header row --------------------------------------------- */
+.work__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-5);
+}
+
+.work__head-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  max-width: 46rem;
+}
+
+.work__title {
+  max-width: 14ch;
+}
+
+.work__lead {
+  max-width: 44ch;
+  margin-top: var(--sp-2);
+}
+
+/* ---- view toggle --------------------------------------------- */
+.work__view-toggle {
+  display: inline-flex;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--surface);
+}
+
+.work__view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.6rem 1.1rem;
+  min-height: 2.75rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-radius: var(--r-full);
+  transition:
+    color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.work__view-btn:hover { color: var(--text); }
+
+.work__view-btn--on {
+  color: var(--text-contrast);
+  background: var(--text);
+}
+
+.work__view-btn--on:hover { color: var(--text-contrast); }
+
+.work__icon {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+
+/* ---- filters -------------------------------------------------- */
+.work__filters-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-5);
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.work__filters {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Keep the row inside its column instead of pushing the page wide. */
+  max-width: 100%;
+  padding-bottom: 0.25rem;
+}
+
+.work__filters::-webkit-scrollbar { display: none; }
+
+.work__filter {
+  flex: none;
+  padding: 0.62rem 1.15rem;
+  min-height: 2.5rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  transition:
+    color var(--d-base) var(--e-out-quint),
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.work__filter:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+.work__filter--on {
+  color: var(--on-accent);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.work__filter--on:hover { color: var(--on-accent); }
+
+.work__count {
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   GRID VIEW
+   ============================================================ */
+
+.work__grid {
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 3rem);
+}
+
+.work__card {
+  /* The reveal is driven by the shared clip-path idea, applied to the
+     shot below rather than the whole card, so text never flickers. */
+  opacity: 0;
+  transform: translate3d(0, 2rem, 0);
+  transition:
+    opacity var(--d-reveal) var(--e-out-expo) var(--reveal-delay, 0ms),
+    transform var(--d-reveal) var(--e-out-expo) var(--reveal-delay, 0ms);
+}
+
+.work__card[data-inview="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.work__card-btn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
+  text-align: left;
+  color: inherit;
+}
+
+/* ---- the preview image --------------------------------------- */
+.work__shot {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: color-mix(in srgb, var(--tone, var(--accent)) 12%, var(--bg-inset));
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--d-reveal) var(--e-out-expo) var(--reveal-delay, 0ms);
+}
+
+.work__card[data-inview="true"] .work__shot {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Every preview is authored 16:10. Matching the frame to it means
+   object-fit never has anything to crop, which is what was chopping
+   the left edge off the wider mockups. */
+.work__shot--wide,
+.work__shot--tall {
+  aspect-ratio: 16 / 10;
+}
+
+/* An unloaded lazy image must not flash the light default image
+   background against this dark section. */
+.work__img {
+  background: transparent;
+}
+
+.work__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--work-zoom) var(--e-out-expo);
+}
+
+.work__card-btn:hover .work__img,
+.work__card-btn:focus-visible .work__img {
+  transform: scale(1.06);
+}
+
+.work__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--tone, var(--accent)) 42%, transparent),
+    transparent 58%
+  );
+  opacity: 0;
+  transition: opacity var(--d-slow) var(--e-out-expo);
+  pointer-events: none;
+}
+
+.work__card-btn:hover .work__veil,
+.work__card-btn:focus-visible .work__veil {
+  opacity: 1;
+}
+
+/* These sit on top of project artwork, so they carry their own opaque
+   ground instead of the theme's translucent surface token. */
+.work__shot-top .badge,
+.work__hero-caption .badge {
+  background: color-mix(in srgb, var(--bg-inset) 84%, transparent);
+  border-color: rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.work__shot-top .badge--concept,
+.work__hero-caption .badge--concept { color: var(--accent-soft); }
+
+.work__shot-top .badge--study,
+.work__hero-caption .badge--study { color: var(--gold); }
+
+.work__shot-top .badge--live,
+.work__hero-caption .badge--live { color: var(--ok-inset); }
+
+.work__shot-top {
+  position: absolute;
+  inset: var(--sp-4) var(--sp-4) auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+  pointer-events: none;
+}
+
+/* ---- the hover affordance ------------------------------------ */
+.work__peek {
+  position: absolute;
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.work__peek-ring {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  color: var(--on-media);
+  background: var(--scrim-media);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--d-slow) var(--e-out-expo),
+    transform var(--d-slow) var(--e-spring);
+}
+
+.work__card-btn:hover .work__peek-ring,
+.work__card-btn:focus-visible .work__peek-ring {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.work__icon--arrow {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* ---- card text ------------------------------------------------ */
+/* Grid rather than flex so the year always keeps its column, however
+   long the discipline label runs. */
+.work__card-meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Sits on the section background rather than on the preview, so it is
+   legible whatever the mockup behind it happens to look like. */
+.work__num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-style: italic;
+  line-height: 1;
+  color: var(--text-faint);
+  flex: none;
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.work__card-btn:hover .work__num,
+.work__card-btn:focus-visible .work__num {
+  color: var(--accent);
+}
+
+.work__year {
+  justify-self: end;
+  color: var(--text-faint);
+}
+
+.work__cat {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.work__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.work__card-title {
+  display: block;
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.work__card-btn:hover .work__card-title,
+.work__card-btn:focus-visible .work__card-title {
+  color: var(--accent);
+}
+
+.work__card-sub {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.work__card-summary {
+  margin-top: 0.35rem;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+  max-width: 52ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.work__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.work__chip {
+  background: transparent;
+}
+
+.work__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.work__cta-arrow {
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.work__card-btn:hover .work__cta,
+.work__card-btn:focus-visible .work__cta {
+  color: var(--accent);
+}
+
+.work__card-btn:hover .work__cta-arrow,
+.work__card-btn:focus-visible .work__cta-arrow {
+  transform: translateX(0.45rem);
+}
+
+/* ============================================================
+   INDEX VIEW
+   ============================================================ */
+
+.work__index {
+  position: relative;
+}
+
+.work__rows {
+  border-top: 1px solid var(--line);
+}
+
+.work__row {
+  border-bottom: 1px solid var(--line);
+  opacity: 0;
+  transform: translate3d(0, 1.4rem, 0);
+  transition:
+    opacity var(--d-slower) var(--e-out-expo) var(--reveal-delay, 0ms),
+    transform var(--d-slower) var(--e-out-expo) var(--reveal-delay, 0ms);
+}
+
+.work__row[data-inview="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.work__row-btn {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+  padding: clamp(1.1rem, 2.2vw, 1.9rem) 0;
+  text-align: left;
+  color: inherit;
+  transition: transform var(--d-slow) var(--e-out-expo);
+}
+
+.work__row-num {
+  color: var(--text-faint);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.work__row-thumb {
+  display: block;
+  width: 4.5rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  flex: none;
+}
+
+.work__row-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work__row-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.work__row-name {
+  font-size: clamp(1.5rem, 1rem + 2.4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.05;
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.work__row-sub {
+  font-family: var(--font-display);
+  font-size: var(--fs-body);
+  font-style: italic;
+  color: var(--text-faint);
+}
+
+/* The status badge stays visible at every width, it is the honest
+   caveat on work that is not a shipped client project, so it must not
+   be the first thing a narrow screen drops. */
+.work__row-badge {
+  justify-self: end;
+}
+
+.work__row-cat,
+.work__row-year {
+  display: none;
+}
+
+.work__row-arrow {
+  font-size: 1.2rem;
+  color: var(--text-faint);
+  opacity: 0;
+  transform: translate3d(-0.6rem, 0, 0);
+  transition:
+    opacity var(--d-base) var(--e-out-quint),
+    transform var(--d-base) var(--e-out-quint),
+    color var(--d-base) var(--e-out-quint);
+}
+
+.work__row-btn:hover,
+.work__row-btn:focus-visible {
+  transform: translate3d(clamp(0.4rem, 1vw, 1rem), 0, 0);
+}
+
+.work__row-btn:hover .work__row-name,
+.work__row-btn:focus-visible .work__row-name,
+.work__row-btn:hover .work__row-num,
+.work__row-btn:focus-visible .work__row-num {
+  color: var(--accent);
+}
+
+.work__row-btn:hover .work__row-arrow,
+.work__row-btn:focus-visible .work__row-arrow {
+  opacity: 1;
+  transform: none;
+  color: var(--accent);
+}
+
+/* ---- the floating preview ------------------------------------ */
+.work__preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: clamp(200px, 22vw, 310px);
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  opacity: 0;
+  /* transform is written by the rAF loop; scale/rotate ride on a child. */
+}
+
+/* Promote to its own layer only while it is actually moving. */
+.work__preview--on {
+  will-change: transform;
+}
+
+.work__preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: inherit;
+}
+
+.work__preview--on {
+  opacity: 1;
+}
+
+.work__preview-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(0.85) rotate(-4deg);
+  transition:
+    opacity var(--work-swap) var(--e-out-expo),
+    transform var(--work-swap) var(--e-out-expo);
+}
+
+.work__preview-img--on {
+  opacity: 1;
+  transform: scale(1) rotate(-3deg);
+}
+
+.work__empty {
+  padding: var(--sp-8) 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-style: italic;
+  color: var(--text-faint);
+  text-align: center;
+}
+
+/* ---- section outro -------------------------------------------- */
+.work__outro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-5);
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+
+.work__outro-text {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+
+.work__modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: clamp(0rem, 3vw, 3rem);
+}
+
+.work__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+  background: color-mix(in srgb, var(--bg-inset) 78%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: fadeIn var(--d-slow) var(--e-out-expo) both;
+}
+
+.work__panel {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 100%);
+  max-height: 92svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  color: var(--text);
+  animation: work-panel-in var(--d-slower) var(--e-out-expo) both;
+}
+
+@keyframes work-panel-in {
+  from { opacity: 0; transform: translate3d(0, 40px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.work__panel:focus { outline: none; }
+
+.work__panel-scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.work__close {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: var(--on-media);
+  background: color-mix(in srgb, var(--bg-inset) 62%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color var(--d-base) var(--e-out-quint), transform var(--d-base) var(--e-spring);
+}
+
+.work__close:hover {
+  background: var(--accent);
+  transform: rotate(90deg);
+}
+
+/* ---- modal hero ----------------------------------------------- */
+.work__hero {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--tone, var(--accent)) 14%, var(--bg-alt));
+}
+
+.work__hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work__hero-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--bg-inset) 55%, transparent), transparent 55%);
+}
+
+.work__hero-caption {
+  position: absolute;
+  left: clamp(1.25rem, 3vw, 2.5rem);
+  bottom: clamp(1rem, 2.5vw, 1.75rem);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.work__hero-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-style: italic;
+  color: var(--on-media);
+}
+
+/* ---- modal body ------------------------------------------------ */
+.work__panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3vw, 2.75rem);
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+.work__panel-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.work__panel-title {
+  color: var(--text);
+}
+
+.work__panel-sub {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent-display);
+}
+
+.work__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+  border-block: 1px solid var(--line);
+}
+
+.work__fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.work__fact dt {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.work__fact dd {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.work__split {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+.work__prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.work__aside {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+@media (min-width: 900px) {
+  .work__split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  /* The aside is the shorter column, a hairline ties it to the prose. */
+  .work__aside {
+    padding-left: clamp(1.5rem, 3vw, 2.5rem);
+    border-left: 1px solid var(--line);
+  }
+}
+
+.work__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.work__block-title {
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.work__highlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.work__highlight {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+  animation: fadeUp var(--d-slow) var(--e-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+.work__highlight-mark {
+  color: var(--accent);
+  font-size: 0.7em;
+  flex: none;
+}
+
+.work__gallery {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.work__gallery-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  transition: transform var(--d-slow) var(--e-out-expo);
+}
+
+.work__gallery-btn:hover {
+  transform: translateY(-4px);
+}
+
+.work__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+/* ---- prev / next ----------------------------------------------- */
+.work__nav {
+  display: grid;
+  gap: var(--sp-4);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+
+.work__nav-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  color: inherit;
+  text-align: left;
+  transition:
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.work__nav-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.work__nav-btn--next {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.work__nav-thumb {
+  width: 4.5rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--r-sm);
+  flex: none;
+  background: var(--bg-alt);
+}
+
+.work__nav-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work__nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.work__nav-dir {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.work__nav-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  color: var(--text);
+}
+
+/* ---- lightbox --------------------------------------------------- */
+.work__lightbox {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+}
+
+.work__lightbox-scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-out;
+  background: color-mix(in srgb, var(--bg-inset) 90%, transparent);
+  animation: fadeIn var(--d-base) var(--e-out-expo) both;
+}
+
+.work__lightbox-figure {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 100%;
+  animation: scaleIn var(--d-slow) var(--e-out-expo) both;
+}
+
+.work__lightbox-figure img {
+  width: 100%;
+  max-height: 72svh;
+  object-fit: contain;
+  border-radius: var(--r-md);
+  background: var(--bg-alt);
+}
+
+.work__lightbox-figure figcaption {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  text-align: center;
+  color: var(--on-media-muted);
+}
+
+.work__lightbox-close {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: var(--on-media);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  transition: background-color var(--d-base) var(--e-out-quint);
+}
+
+.work__lightbox-close:hover {
+  background: var(--accent);
+}
+
+/* ============================================================
+   BREAKPOINTS
+   ============================================================ */
+
+@media (min-width: 640px) {
+  .work__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work__gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work__nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 768px) {
+  .work__row-btn {
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  }
+  .work__row-cat {
+    display: block;
+    font-size: var(--fs-micro);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+  .work__row-year { display: block; color: var(--text-faint); }
+}
+
+@media (min-width: 1024px) {
+  .work__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+  }
+  /* 7 + 5 always fills the twelve columns, and alternating which side
+     is wide keeps the rhythm from looking mechanical. Driving this off
+     nth-child rather than a data flag means the grid stays tiled however
+     many projects are added or filtered out. */
+  .work__card { grid-column: span 5; }
+  .work__card:nth-child(4n + 1),
+  .work__card:nth-child(4n + 4) { grid-column: span 7; }
+
+  /* Drop every second card so the row is not a flat line. */
+  .work__card:nth-child(even) { margin-top: clamp(2rem, 5vw, 5rem); }
+
+  .work__row-btn {
+    grid-template-columns: auto 1fr auto auto auto auto;
+    gap: var(--sp-5);
+  }
+}
+
+@media (max-width: 767px) {
+  .work__row-btn {
+    grid-template-columns: auto auto minmax(0, 1fr) auto auto;
+    gap: var(--sp-3);
+  }
+  .work__row-arrow { display: none; }
+  .work__modal { padding: 0; }
+  .work__panel {
+    width: 100%;
+    max-height: 100svh;
+    height: 100svh;
+    border-radius: 0;
+    /* On a phone it behaves as a sheet rising from the bottom. */
+    animation-name: work-sheet-in;
+  }
+  @keyframes work-sheet-in {
+    from { transform: translate3d(0, 100%, 0); }
+    to   { transform: translate3d(0, 0, 0); }
+  }
+  .work__hero { aspect-ratio: 4 / 3; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .work__card,
+  .work__row,
+  .work__shot {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition-duration: 1ms;
+  }
+
+  /* Same specificity as the hover rules above, declared later, so the
+     motion is cancelled without reaching for !important. */
+  .work__card-btn:hover .work__img,
+  .work__card-btn:focus-visible .work__img,
+  .work__card-btn:hover .work__peek-ring,
+  .work__card-btn:focus-visible .work__peek-ring,
+  .work__card-btn:hover .work__cta-arrow,
+  .work__card-btn:focus-visible .work__cta-arrow,
+  .work__row-btn:hover,
+  .work__row-btn:focus-visible,
+  .work__row-btn:hover .work__row-arrow,
+  .work__row-btn:focus-visible .work__row-arrow,
+  .work__gallery-btn:hover,
+  .work__close:hover,
+  .work__preview-img,
+  .work__preview-img--on {
+    transform: none;
+    transition-duration: 1ms;
+  }
+
+  .work__panel,
+  .work__scrim,
+  .work__highlight,
+  .work__lightbox-figure,
+  .work__lightbox-scrim {
+    animation: none;
+    opacity: 1;
+  }
+}

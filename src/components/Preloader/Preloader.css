@@ -1,0 +1,257 @@
+/* ============================================================
+   PRELOADER: full-bleed intro curtain on the inset ground.
+   `.on-dark` (tokens.css) flips the semantic text/line tokens,
+   so every colour below stays a token in both themes.
+   ============================================================ */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-inset);
+  color: var(--text);
+  transform: translate3d(0, 0, 0);
+  transition: transform var(--d-slower) var(--e-out-expo);
+  /* One element only, and it leaves the DOM once the wipe lands. */
+  will-change: transform;
+}
+
+/* The curtain lifts away; the page underneath is already fading in. */
+.preloader[data-phase="exit"] {
+  transform: translate3d(0, -101%, 0);
+  pointer-events: none;
+}
+
+/* ---- layout -------------------------------------------------- */
+
+.preloader__inner {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sp-6);
+  padding-block: clamp(1.25rem, 0.7rem + 2.6vw, 3.25rem) clamp(2rem, 1.2rem + 3.4vw, 4rem);
+  padding-inline: var(--gutter);
+  transition:
+    opacity var(--d-base) var(--e-out-quint),
+    transform var(--d-slow) var(--e-out-expo);
+}
+
+/* Content dissolves a beat ahead of the ground it sits on. */
+.preloader[data-phase="exit"] .preloader__inner {
+  opacity: 0;
+  transform: translate3d(0, calc(-1.25rem * var(--motion)), 0);
+}
+
+/* Hairline column rules: the ghost of an editorial grid. */
+.preloader__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--line-invert-soft) 0 1px,
+    transparent 1px 25%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    currentColor 20%,
+    currentColor 76%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    currentColor 20%,
+    currentColor 76%,
+    transparent
+  );
+  animation: fadeIn var(--d-reveal) var(--e-out-expo) 260ms both;
+}
+
+/* ---- meta row ------------------------------------------------- */
+
+.preloader__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  animation: fadeIn var(--d-slow) var(--e-out-expo) 140ms both;
+}
+
+.preloader .preloader__meta {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.preloader .preloader__meta--end {
+  color: var(--text-faint);
+  text-align: right;
+}
+
+/* ---- the name -------------------------------------------------- */
+
+.preloader .preloader__name {
+  margin-top: auto;
+  font-size: clamp(2.5rem, min(10vw, 15vh), 8.5rem);
+  line-height: 1;
+  text-wrap: nowrap;
+}
+
+/* Overflow-hidden rows, padded so no ascender or descender clips. */
+.preloader .preloader__line {
+  padding-block: 0.14em;
+}
+
+.preloader .preloader__line + .preloader__line {
+  margin-top: -0.16em;
+}
+
+.preloader__line > span {
+  animation: preloader-rise var(--d-slower) var(--e-out-expo) var(--delay, 0ms) both;
+}
+
+@keyframes preloader-rise {
+  from { transform: translate3d(0, 120%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+/* ---- role + counter -------------------------------------------- */
+
+.preloader__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  padding-top: clamp(0.9rem, 0.5rem + 1.4vw, 1.9rem);
+  border-top: 1px solid var(--line);
+}
+
+.preloader__role {
+  max-width: 20ch;
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 400;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  animation: fadeUp var(--d-slower) var(--e-out-expo) 480ms both;
+}
+
+/* Anchored right, so the readout grows leftward from 00 to 100. */
+.preloader__count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+  margin-left: auto;
+  color: var(--text);
+  animation: fadeUp var(--d-slow) var(--e-out-expo) 220ms both;
+}
+
+.preloader__digits {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, min(9vw, 13vh), 7.5rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: var(--ls-tight);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+.preloader__pct {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--ls-wide);
+  color: var(--accent);
+}
+
+/* ---- progress hairline ------------------------------------------ */
+
+.preloader__track {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  overflow: hidden;
+  background: var(--line-invert-soft);
+  animation: fadeIn var(--d-base) var(--e-out-expo) 100ms both;
+}
+
+/* --p is written per animation frame, so no transition is needed. */
+.preloader__bar {
+  display: block;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 35%, transparent),
+    var(--accent)
+  );
+  transform: scaleX(var(--p, 0));
+  transform-origin: left center;
+}
+
+/* ---- narrow screens ---------------------------------------------- */
+
+@media (max-width: 34.375rem) {
+  .preloader__foot {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-4);
+  }
+
+  .preloader__role {
+    max-width: none;
+  }
+
+  .preloader__count {
+    justify-content: flex-end;
+  }
+}
+
+/* ---- short viewports (landscape phones) --------------------------- */
+
+@media (max-height: 34rem) {
+  .preloader__inner {
+    gap: var(--sp-4);
+  }
+
+  .preloader .preloader__name {
+    font-size: clamp(2rem, min(9vw, 14vh), 8.5rem);
+  }
+}
+
+/* ---- reduced motion -----------------------------------------------
+   The component renders nothing at all in this mode; these rules
+   exist so no stray animation survives a mid-session preference flip.
+   ------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader,
+  .preloader__inner {
+    transition: none;
+    will-change: auto;
+  }
+
+  .preloader__grid,
+  .preloader__top,
+  .preloader__role,
+  .preloader__count,
+  .preloader__track,
+  .preloader__line > span {
+    animation: none;
+  }
+
+  .preloader__line > span {
+    transform: none;
+  }
+
+  .preloader[data-phase="exit"] .preloader__inner {
+    transform: none;
+  }
+}

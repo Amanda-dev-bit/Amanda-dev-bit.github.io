@@ -1,0 +1,249 @@
+/* ============================================================
+   DESIGN TOKENS: "Editorial Atelier"
+   Single source of truth. Components must never hard-code a
+   colour, duration, easing or radius: always reference a token.
+   ============================================================ */
+
+:root {
+  /* ---- Raw palette -------------------------------------- */
+  --c-bone: #fbf8f4;
+  --c-shell: #f4ece5;
+  --c-blush: #ead9d2;
+  --c-clay: #b96c5b;
+  --c-clay-soft: #c9897a;
+  --c-gold: #c4a177;
+  --c-sage: #879c89;
+  --c-ink: #1c1615;
+  --c-ink-2: #2a201e;
+  --c-mocha: #6b4c4c;
+  --c-mocha-soft: #806660;
+
+  /* ---- Semantic surface / text (light is the default) ---- */
+  --bg: var(--c-bone);
+  --bg-alt: var(--c-shell);
+  --bg-inset: var(--c-ink);
+  --surface: #ffffff;
+  --surface-raised: #fffdfb;
+  --surface-sunken: var(--c-shell);
+
+  --text: var(--c-ink);
+  --text-muted: var(--c-mocha);
+  --text-faint: var(--c-mocha-soft);
+  --text-invert: var(--c-bone);
+  /* What reads on top of --text when --text is used as a fill, and what
+     reads on top of --accent. These have to be separate from
+     --text-invert, which .on-dark redefines to mean something else. */
+  --text-contrast: var(--c-bone);
+  --on-accent: var(--c-bone);
+  --text-invert-muted: rgba(251, 248, 244, 0.62);
+  /* 0.5, not 0.38: at 0.38 this sits at 3.4:1 on the inset ground. */
+  --text-invert-faint: rgba(251, 248, 244, 0.5);
+
+  /* Two accents, because one cannot do both jobs.
+     --accent is the working colour for text, rules and UI: darkened to
+     #9b5b4c so it clears 4.5:1 on bone (4.97), on shell (4.50) and on
+     white (5.26) at the small sizes eyebrows and labels are set at.
+     --accent-display is the warmer original clay, reserved for the large
+     italic display words where 3:1 is the bar and the warmth is the point. */
+  --accent: #9b5b4c;
+  --accent-display: var(--c-clay);
+  /* Darkening the accent buys contrast on a light ground and loses it on
+     a dark one, so .on-dark sections take this lighter value instead,
+     4.56:1 on the inset ground. */
+  --accent-inset: var(--c-clay);
+  --accent-soft: var(--c-clay-soft);
+  --accent-wash: rgba(185, 108, 91, 0.09);
+  --accent-glow: rgba(185, 108, 91, 0.22);
+  --gold: var(--c-gold);
+  --sage: var(--c-sage);
+
+  /* Status green: "available", "live". Kept separate from the accent
+     because it carries meaning rather than brand. */
+  --ok: #2f7d55;
+  --ok-wash: rgba(47, 125, 85, 0.08);
+  --ok-line: rgba(47, 125, 85, 0.35);
+  /* Same reasoning as --accent-inset: the darker green reads on paper and
+     disappears on the inset ground, so .on-dark takes the lighter one. */
+  --ok-inset: #6dc394;
+
+  /* Text that sits on top of imagery, where the photo, not the theme,
+     decides the contrast. */
+  --on-media: #ffffff;
+  --on-media-muted: rgba(255, 255, 255, 0.72);
+  --scrim-media: rgba(20, 16, 15, 0.28);
+
+  --line: rgba(28, 22, 21, 0.12);
+  --line-soft: rgba(28, 22, 21, 0.07);
+  --line-strong: rgba(28, 22, 21, 0.24);
+  --line-invert: rgba(251, 248, 244, 0.14);
+  --line-invert-soft: rgba(251, 248, 244, 0.08);
+
+  /* ---- Typography --------------------------------------- */
+  --font-display: "Cormorant Garamond", "Cormorant Fallback", Georgia, serif;
+  --font-sans: "Jost", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, "Cascadia Mono", monospace;
+
+  /* Fluid type scale: min 360px viewport, max 1600px */
+  /* Floors deliberately sit above 11px: these carry real labels
+     (location, timezone, status), not decoration. */
+  --fs-micro: clamp(0.7rem, 0.66rem + 0.16vw, 0.76rem);
+  --fs-eyebrow: clamp(0.73rem, 0.69rem + 0.18vw, 0.8rem);
+  --fs-sm: clamp(0.82rem, 0.78rem + 0.2vw, 0.9rem);
+  --fs-body: clamp(0.94rem, 0.89rem + 0.26vw, 1.06rem);
+  --fs-lead: clamp(1.05rem, 0.96rem + 0.46vw, 1.32rem);
+  --fs-h4: clamp(1.15rem, 1.02rem + 0.6vw, 1.55rem);
+  --fs-h3: clamp(1.5rem, 1.24rem + 1.15vw, 2.35rem);
+  --fs-h2: clamp(2.25rem, 1.55rem + 3.1vw, 4.4rem);
+  /* Sized so the longest line ("Chukwujekwu", 11 characters) fills about
+     87% of its column rather than 99%, the previous value left 9px of
+     slack at 1440px, which any fallback face immediately overran. */
+  --fs-h1: clamp(2.6rem, 1.3rem + 6.4vw, 7rem);
+
+  --lh-tight: 0.92;
+  --lh-snug: 1.12;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.78;
+
+  --ls-tight: -0.02em;
+  --ls-normal: 0;
+  --ls-wide: 0.08em;
+  --ls-wider: 0.2em;
+  --ls-widest: 0.34em;
+
+  /* ---- Space (8pt-ish, fluid at the top end) ------------ */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+  --sp-10: 8rem;
+
+  --gutter: clamp(1.25rem, 0.55rem + 3.1vw, 4.5rem);
+  --section-y: clamp(5rem, 3.2rem + 7.6vw, 11rem);
+  --maxw: 1320px;
+  --maxw-narrow: 780px;
+  --maxw-prose: 62ch;
+
+  /* ---- Radii / borders ---------------------------------- */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 10px;
+  --r-lg: 18px;
+  --r-xl: 28px;
+  --r-full: 999px;
+
+  /* ---- Elevation ---------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(28, 22, 21, 0.05), 0 2px 8px rgba(28, 22, 21, 0.04);
+  --shadow-md: 0 4px 14px rgba(28, 22, 21, 0.07), 0 12px 34px rgba(28, 22, 21, 0.06);
+  --shadow-lg: 0 10px 30px rgba(28, 22, 21, 0.09), 0 30px 70px rgba(28, 22, 21, 0.1);
+  --shadow-accent: 0 14px 44px rgba(185, 108, 91, 0.24);
+
+  /* ---- Motion ------------------------------------------- */
+  --e-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --e-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --e-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --e-linear: linear;
+
+  --d-fast: 180ms;
+  --d-base: 320ms;
+  --d-slow: 620ms;
+  --d-slower: 950ms;
+  --d-reveal: 1100ms;
+
+  /* Multiplier switched to 0 by prefers-reduced-motion */
+  --motion: 1;
+
+  /* ---- Layers ------------------------------------------- */
+  --z-base: 1;
+  --z-sticky: 20;
+  --z-header: 60;
+  --z-overlay: 80;
+  --z-modal: 100;
+  --z-cursor: 9000;
+  --z-grain: 9500;
+  --z-preloader: 9800;
+
+  --header-h: 5.25rem;
+  color-scheme: light;
+}
+
+/* ============================================================
+   DARK THEME: only semantic tokens are redefined.
+   ============================================================ */
+:root[data-theme="dark"] {
+  --bg: #141010;
+  --bg-alt: #1b1615;
+  --bg-inset: #0d0a0a;
+  --surface: #1f1918;
+  --surface-raised: #262020;
+  --surface-sunken: #171211;
+
+  --text: #f6efe9;
+  --text-muted: #bda9a2;
+  --text-faint: #93807a;
+  --text-invert: #f6efe9;
+  --text-contrast: #141010;
+  --on-accent: #141010;
+  --text-invert-muted: rgba(246, 239, 233, 0.62);
+  --text-invert-faint: rgba(246, 239, 233, 0.5);
+
+  --accent: #dd8e79;
+  --accent-display: #dd8e79;
+  --accent-inset: #dd8e79;
+  --accent-soft: #e6a894;
+  --accent-wash: rgba(221, 142, 121, 0.12);
+  --accent-glow: rgba(221, 142, 121, 0.26);
+  --gold: #d6b689;
+  --sage: #9bb09d;
+
+  --ok: #6dc394;
+  --ok-wash: rgba(109, 195, 148, 0.1);
+  --ok-line: rgba(109, 195, 148, 0.34);
+
+  --line: rgba(246, 239, 233, 0.14);
+  --line-soft: rgba(246, 239, 233, 0.08);
+  --line-strong: rgba(246, 239, 233, 0.26);
+  --line-invert: rgba(246, 239, 233, 0.14);
+  --line-invert-soft: rgba(246, 239, 233, 0.08);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45), 0 12px 34px rgba(0, 0, 0, 0.38);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5), 0 30px 70px rgba(0, 0, 0, 0.45);
+  --shadow-accent: 0 14px 44px rgba(221, 142, 121, 0.22);
+
+  color-scheme: dark;
+}
+
+/* Sections rendered on the deep "inset" background flip their
+   local text tokens so children need no special casing. */
+.on-dark {
+  --accent: var(--accent-inset);
+  --ok: var(--ok-inset);
+  --text-contrast: var(--bg-inset);
+  --on-accent: var(--bg-inset);
+  --text: var(--text-invert);
+  --text-muted: var(--text-invert-muted);
+  --text-faint: var(--text-invert-faint);
+  --line: var(--line-invert);
+  --line-soft: var(--line-invert-soft);
+  --line-strong: rgba(251, 248, 244, 0.3);
+  --surface: rgba(251, 248, 244, 0.035);
+  --surface-raised: rgba(251, 248, 244, 0.06);
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion: 0;
+    --d-fast: 1ms;
+    --d-base: 1ms;
+    --d-slow: 1ms;
+    --d-slower: 1ms;
+    --d-reveal: 1ms;
+  }
+}

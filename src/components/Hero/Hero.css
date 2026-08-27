@@ -1,0 +1,424 @@
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hero {
+  /* The portrait settles out of its zoom more slowly than anything
+     else on the page: long enough to notice, short enough to ignore. */
+  --hero-settle: 1600ms;
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: calc(var(--header-h) + var(--sp-7)) var(--sp-9);
+  /* clip, not hidden: hidden would make this a scroll container and
+     break position:sticky for anything nested later. */
+  overflow: clip;
+}
+
+.hero__inner {
+  display: grid;
+  gap: clamp(2.5rem, 1rem + 6vw, 5rem);
+  align-items: center;
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ============================================================
+   ENTRANCE: everything is gated on [data-ready="true"].
+   Each element carries its own --d delay.
+   ============================================================ */
+
+.hero__anim {
+  opacity: 0;
+  transform: translate3d(0, 1.6rem, 0);
+  transition:
+    opacity var(--d-slower) var(--e-out-expo) var(--d, 0ms),
+    transform var(--d-slower) var(--e-out-expo) var(--d, 0ms);
+}
+
+.hero[data-ready="true"] .hero__anim {
+  opacity: 1;
+  transform: none;
+}
+
+/* Override the shared .line-mask rule, which waits on data-inview. */
+.hero__name .line-mask > span {
+  transform: translate3d(0, 110%, 0);
+  transition: transform var(--d-reveal) var(--e-out-expo) var(--d, 0ms);
+}
+
+.hero[data-ready="true"] .hero__name .line-mask > span {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ============================================================
+   TEXT COLUMN
+   ============================================================ */
+
+.hero__text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-5);
+  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.hero__eyebrow {
+  margin: 0;
+}
+
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.4em 0.95em;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--surface);
+}
+
+.hero__status-dot {
+  position: relative;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  background: var(--ok);
+  color: var(--ok);
+  flex: none;
+}
+
+.hero__status-dot::after {
+  content: "";
+  position: absolute;
+  inset: -0.32em;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  animation: pulseRing 2.6s var(--e-out-expo) infinite;
+}
+
+/* ---- the name ------------------------------------------------ */
+.hero__name {
+  margin-bottom: clamp(1.1rem, 2vw, 1.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  /* Long single words must be allowed to shrink rather than overflow. */
+  max-width: 100%;
+}
+
+.hero__line {
+  display: block;
+}
+
+.hero__line:last-child {
+  /* The italic second line hangs slightly left, as it would in print. */
+  margin-left: clamp(0rem, 1.2vw, 0.9rem);
+}
+
+.hero__name em {
+  font-style: italic;
+  color: var(--accent-display);
+}
+
+/* ---- role + tagline ------------------------------------------ */
+.hero__role {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: clamp(1.25rem, 2.4vw, 1.9rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.9rem + 0.8vw, 1.5rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.hero__role-rule {
+  width: clamp(1.5rem, 4vw, 3rem);
+  height: 1px;
+  background: var(--accent);
+  flex: none;
+}
+
+.hero__tagline {
+  max-width: 40ch;
+  margin-bottom: clamp(1.9rem, 3.5vw, 2.9rem);
+}
+
+/* ---- CTAs ---------------------------------------------------- */
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-6);
+  margin-bottom: clamp(2.4rem, 5vw, 4rem);
+}
+
+/* ---- meta row ------------------------------------------------ */
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  width: 100%;
+  border-top: 1px solid var(--line-soft);
+  padding-top: var(--sp-4);
+}
+
+.hero__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-right: clamp(1.25rem, 3vw, 2.5rem);
+  margin-right: clamp(1.25rem, 3vw, 2.5rem);
+  border-right: 1px solid var(--line-soft);
+}
+
+.hero__meta-item:last-child {
+  padding-right: 0;
+  margin-right: 0;
+  border-right: 0;
+}
+
+.hero__meta dt {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hero__meta dd {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.hero__meta-open {
+  color: var(--text);
+}
+
+/* ============================================================
+   IMAGE COLUMN
+   ============================================================ */
+
+.hero__visual {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  width: 100%;
+  max-width: 30rem;
+}
+
+.hero__frame {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-lg);
+  /* The frame unrolls, then the photo settles out of its zoom. */
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--d-reveal) var(--e-out-expo) 260ms;
+}
+
+.hero[data-ready="true"] .hero__frame {
+  clip-path: inset(0 0 0 0);
+}
+
+.hero__parallax {
+  width: 100%;
+  height: 100%;
+  transform: translate3d(0, var(--parallax, 0), 0);
+}
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+  transition: transform var(--hero-settle) var(--e-out-expo) 320ms;
+}
+
+.hero[data-ready="true"] .hero__photo {
+  transform: scale(1);
+}
+
+/* Offset outline frame, rotated a touch, depth without a shadow. */
+.hero__outline {
+  position: absolute;
+  z-index: 1;
+  inset: 8% -6% -7% 7%;
+  border: 1px solid var(--accent);
+  border-radius: var(--r-lg);
+  opacity: 0;
+  transform: rotate(2.5deg) scale(0.97);
+  transition:
+    opacity var(--d-slower) var(--e-out-expo) 520ms,
+    transform var(--d-slower) var(--e-out-expo) 520ms;
+}
+
+.hero[data-ready="true"] .hero__outline {
+  opacity: 0.45;
+  transform: rotate(2.5deg) scale(1);
+}
+
+.hero__blob {
+  position: absolute;
+  z-index: 0;
+  inset: -18% -22% 10% -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, var(--accent-glow), transparent 68%);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity var(--d-reveal) var(--e-out-expo) 400ms;
+  pointer-events: none;
+}
+
+.hero[data-ready="true"] .hero__blob { opacity: 1; }
+
+/* ---- floating monogram card ---------------------------------- */
+.hero__card {
+  position: absolute;
+  z-index: 3;
+  left: clamp(-1.5rem, -3vw, -0.5rem);
+  bottom: clamp(1.5rem, 5vw, 3rem);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0.75rem 1.15rem 0.75rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translate3d(0, 1rem, 0);
+  transition:
+    opacity var(--d-slower) var(--e-out-expo) 900ms,
+    transform var(--d-slower) var(--e-out-expo) 900ms;
+}
+
+.hero[data-ready="true"] .hero__card {
+  opacity: 1;
+  transform: none;
+  animation: floatY 6s var(--e-in-out) 2s infinite;
+}
+
+.hero__card-initials {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-style: italic;
+  line-height: 1;
+  color: var(--accent-display);
+}
+
+.hero__card-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  border-left: 1px solid var(--line);
+  padding-left: 0.85rem;
+}
+
+.hero__card-caption .mono {
+  color: var(--text-muted);
+}
+
+.hero__card-role {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   BREAKPOINTS
+   ============================================================ */
+
+@media (max-width: 899px) {
+  .hero {
+    padding-block: calc(var(--header-h) + var(--sp-6)) var(--sp-8);
+  }
+  .hero__visual {
+    order: -1;
+    max-width: 22rem;
+  }
+  .hero__frame {
+    aspect-ratio: 1 / 1;
+  }
+  .hero__card {
+    left: auto;
+    right: -0.5rem;
+    bottom: -1rem;
+  }
+  .hero__meta {
+    gap: var(--sp-4) 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__visual { max-width: 16rem; }
+  .hero__meta-item {
+    padding-right: var(--sp-4);
+    margin-right: var(--sp-4);
+  }
+  .hero__meta dd { white-space: normal; }
+  .hero__card {
+    padding: 0.6rem 0.9rem 0.6rem 0.7rem;
+  }
+  .hero__card-initials { font-size: 1.5rem; }
+}
+
+@media (min-width: 900px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero__inner {
+    /* A touch more room for the name than the portrait needs. */
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.75fr);
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__anim,
+  .hero__name .line-mask > span,
+  .hero__frame,
+  .hero__photo,
+  .hero__outline,
+  .hero__blob,
+  .hero__card {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
+  .hero__outline { opacity: 0.45; transform: rotate(2.5deg); }
+  .hero[data-ready="true"] .hero__card { animation: none; }
+  .hero__status-dot::after { animation: none; }
+}

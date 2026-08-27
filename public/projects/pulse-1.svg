@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Interface preview">
+  <rect x="0" y="0" width="1600" height="1000" rx="0" fill="#e7e7eb"/>
+  <rect x="0" y="0" width="1600" height="1000" rx="0" fill="#e7e7eb"/><circle cx="256" cy="200" r="250" fill="rgba(124,143,185,0.12)"/><circle cx="1376" cy="820" r="300" fill="rgba(124,143,185,0.1)"/><defs>
+      <filter id="ph1" x="-30%" y="-20%" width="160%" height="150%">
+        <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="rgba(28,22,21,0.2)"/>
+      </filter>
+    </defs>
+    <g filter="url(#ph1)">
+      <rect x="630" y="40" width="340" height="884" rx="39.1" fill="#1c1615"/>
+    </g>
+    <rect x="637" y="47" width="326" height="870" rx="34.1" fill="#ffffff"/>
+    <rect x="752.4" y="56" width="95.2" height="10" rx="5" fill="rgba(28,22,21,0.16)"/>
+    <rect x="630" y="40" width="340" height="884" rx="39.1" fill="none" stroke="rgba(28,22,21,0.14)"/><rect x="637" y="74" width="326" height="836" rx="0" fill="#373843"/><text x="659" y="114" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="rgba(251,248,244,0.55)" text-anchor="start" letter-spacing="3">SET 3 OF 5</text><text x="659" y="170" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="36" font-weight="300" fill="#fbf8f4" text-anchor="start" letter-spacing="0">Back Squat</text><text x="659" y="206" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="rgba(251,248,244,0.6)" text-anchor="start" letter-spacing="0">80 kg × 8 reps</text><circle cx="800" cy="342" r="92" fill="none" stroke="rgba(251,248,244,0.14)" stroke-width="12"/><circle cx="800" cy="342" r="92" fill="none" stroke="#7c8fb9" stroke-width="12" stroke-linecap="round" stroke-dasharray="358.4 219.7" transform="rotate(-90 800 342)"/><text x="800" y="354" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="40" font-weight="400" fill="#fbf8f4" text-anchor="middle" letter-spacing="0">01:24</text><text x="800" y="382" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="rgba(251,248,244,0.45)" text-anchor="middle" letter-spacing="3">REST</text><rect x="657" y="762" width="286" height="68" rx="34" fill="#7c8fb9"/><text x="800" y="805" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="500" fill="#101820" text-anchor="middle" letter-spacing="0">Complete set</text><rect x="657" y="844" width="137" height="52" rx="26" fill="rgba(251,248,244,0.12)"/><rect x="806" y="844" width="137" height="52" rx="26" fill="rgba(251,248,244,0.12)"/>
+</svg>

@@ -1,0 +1,764 @@
+/* ============================================================
+   CONTACT
+   ============================================================ */
+
+.contact {
+  overflow: clip;
+}
+
+.contact__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact__eyebrow {
+  justify-content: center;
+}
+
+/* The eyebrow gets its trailing rule back when centred. */
+.contact__eyebrow::after {
+  content: "";
+  width: clamp(1.5rem, 3vw, 2.75rem);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.contact__title {
+  margin-top: var(--sp-4);
+  max-width: 16ch;
+}
+
+.contact__quote {
+  margin-top: var(--sp-5);
+  max-width: 30ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1rem + 1.4vw, 2rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+  text-wrap: balance;
+}
+
+/* ---- the email --------------------------------------------- */
+.contact__email-row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  /* Deliberately wider than the narrow prose column so the address sets
+     on one line. The parent centres its children, so overflowing it
+     symmetrically is safe; the viewport cap keeps the page from scrolling. */
+  width: 62rem;
+  max-width: calc(100vw - 2 * var(--gutter));
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.contact__email {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.5rem + 3.4vw, 3rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--text);
+  /* A long address must never widen the page on a small phone. */
+  overflow-wrap: anywhere;
+  transition: color var(--d-slow) var(--e-out-expo);
+}
+
+.contact__email::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--d-slow) var(--e-out-expo);
+}
+
+.contact__email:hover,
+.contact__email:focus-visible {
+  color: var(--accent);
+}
+
+.contact__email:hover::after,
+.contact__email:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.contact__copy {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text-muted);
+  transition:
+    color var(--d-base) var(--e-out-quint),
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.contact__copy:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.contact__copy-icons {
+  position: relative;
+  display: grid;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.contact__icon {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  transition:
+    opacity var(--d-base) var(--e-out-quint),
+    transform var(--d-base) var(--e-spring);
+}
+
+.contact__icon--check {
+  opacity: 0;
+  transform: scale(0.4);
+  color: var(--accent);
+}
+
+.contact__email-row:has(.contact__copied--on) .contact__icon--copy {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.contact__email-row:has(.contact__copied--on) .contact__icon--check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.contact__copied {
+  position: absolute;
+  left: 50%;
+  bottom: -1.75rem;
+  transform: translate(-50%, 0.4rem);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--d-base) var(--e-out-quint),
+    transform var(--d-base) var(--e-out-expo);
+}
+
+.contact__copied--on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---- actions ------------------------------------------------ */
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4) var(--sp-5);
+  margin-top: clamp(2.75rem, 5vw, 4rem);
+}
+
+/* ---- availability card -------------------------------------- */
+.contact__availability {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  text-align: left;
+}
+
+.contact__available {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.contact__dot {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ok);
+  color: var(--ok);
+}
+
+.contact__dot::after {
+  content: "";
+  position: absolute;
+  inset: -0.32rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  animation: pulseRing 2.6s var(--e-out-expo) infinite;
+}
+
+.contact__where {
+  display: grid;
+  gap: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line-soft);
+}
+
+.contact__where dt {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.contact__where dd {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.contact__clock {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.contact__clock-time {
+  font-size: var(--fs-body);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.contact__clock-zone {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  color: var(--text-faint);
+}
+
+/* ---- socials ------------------------------------------------- */
+.contact__socials {
+  width: 100%;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  text-align: left;
+}
+
+.contact__social {
+  border-top: 1px solid var(--line-soft);
+}
+
+.contact__social:last-child {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.contact__social-link {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: clamp(0.9rem, 2vw, 1.35rem) 0;
+  color: var(--text-muted);
+  transition:
+    color var(--d-base) var(--e-out-quint),
+    transform var(--d-slow) var(--e-out-expo),
+    padding-left var(--d-slow) var(--e-out-expo);
+}
+
+.contact__social-label {
+  font-size: var(--fs-body);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.contact__social-handle {
+  display: none;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  overflow-wrap: anywhere;
+}
+
+.contact__social-arrow {
+  font-size: 1.05rem;
+  color: var(--text-faint);
+  transition:
+    transform var(--d-base) var(--e-out-expo),
+    color var(--d-base) var(--e-out-quint);
+}
+
+.contact__social-link:hover,
+.contact__social-link:focus-visible {
+  padding-left: var(--sp-4);
+}
+
+.contact__social-link:hover .contact__social-label,
+.contact__social-link:focus-visible .contact__social-label,
+.contact__social-link:hover .contact__social-arrow,
+.contact__social-link:focus-visible .contact__social-arrow {
+  color: var(--accent);
+}
+
+.contact__social-link:hover .contact__social-arrow,
+.contact__social-link:focus-visible .contact__social-arrow {
+  transform: translate3d(0.3rem, -0.3rem, 0);
+}
+
+.contact .ornament {
+  width: 100%;
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+/* ============================================================
+   BREAKPOINTS
+   ============================================================ */
+
+@media (min-width: 600px) {
+  .contact__social-link {
+    grid-template-columns: minmax(6rem, auto) 1fr auto;
+  }
+  .contact__social-handle { display: block; }
+}
+
+@media (min-width: 700px) {
+  .contact__availability {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr);
+    align-items: center;
+    gap: var(--sp-6);
+  }
+  .contact__where {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 0;
+    border-top: 0;
+    border-left: 1px solid var(--line-soft);
+    padding-left: var(--sp-6);
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__dot::after { animation: none; }
+  .contact__email::after,
+  .contact__social-link,
+  .contact__social-arrow,
+  .contact__icon,
+  .contact__copied {
+    transition-duration: 1ms;
+  }
+  .contact__social-link:hover,
+  .contact__social-link:focus-visible {
+    padding-left: 0;
+  }
+  .contact__social-link:hover .contact__social-arrow,
+  .contact__social-link:focus-visible .contact__social-arrow {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   ENQUIRY FORM
+   Editorial to match the rest of the page: hairline rules
+   instead of boxes, and the label doing the work a border
+   usually does. Every colour is a token so both themes follow.
+   ============================================================ */
+
+.cform {
+  /* No global danger token exists, so the form carries its own. */
+  --cf-bad: #b4442f;
+  --cf-bad-wash: rgba(180, 68, 47, 0.07);
+  /* Field surface and border. --line is too faint to bound a
+     control, so these are set locally and kept above 3:1. */
+  --cf-field: var(--surface);
+  --cf-field-focus: var(--surface);
+  --cf-border: #8f857e;
+  --cf-border-strong: #6f635b;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  width: 100%;
+  margin-top: var(--sp-7);
+  text-align: left;
+}
+
+:root[data-theme="dark"] .cform {
+  --cf-bad: #e8836c;
+  --cf-bad-wash: rgba(232, 131, 108, 0.1);
+  --cf-field: rgba(251, 248, 244, 0.04);
+  --cf-field-focus: rgba(251, 248, 244, 0.07);
+  --cf-border: #736963;
+  --cf-border-strong: #9c918a;
+}
+
+.cform__row {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 35rem) {
+  .cform__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cform__field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.cform__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.cform__req {
+  color: var(--accent);
+}
+
+/* ---- inputs -------------------------------------------------
+   Real fields rather than floating text: a filled surface, a
+   border that carries the boundary, and the same corner radius
+   as the cards elsewhere on the page.
+
+   The border colour is its own token rather than --line, which
+   at 0.12 alpha sits near 1.3:1 against the page and leaves the
+   control with no discernible edge (WCAG 1.4.11 wants 3:1).
+   -------------------------------------------------------------- */
+
+.cform__input {
+  width: 100%;
+  padding: 0.8rem 0.95rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--cf-field);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--r-md);
+  transition:
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint),
+    box-shadow var(--d-base) var(--e-out-quint);
+}
+
+.cform__input::placeholder {
+  color: var(--text-faint);
+  opacity: 1;
+}
+
+.cform__input:hover {
+  border-color: var(--cf-border-strong);
+}
+
+.cform__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--cf-field-focus);
+  box-shadow: 0 0 0 3px var(--accent-wash);
+}
+
+/* Keyboard users still get the ring; the box-shadow above is the
+   resting focus treatment for everyone. */
+.cform__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.cform__input--bad {
+  border-color: var(--cf-bad);
+  background: var(--cf-bad-wash);
+}
+
+.cform__input--bad:focus {
+  border-color: var(--cf-bad);
+  box-shadow: 0 0 0 3px var(--cf-bad-wash);
+}
+
+/* Chrome paints its own pale background over an autofilled field,
+   which on the dark theme reads as a broken white box. There is no
+   way to override that background directly, so an inset shadow the
+   size of the field is used to repaint it. */
+.cform__input:-webkit-autofill,
+.cform__input:-webkit-autofill:hover,
+.cform__input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0 100px var(--cf-field) inset;
+  box-shadow: 0 0 0 100px var(--cf-field) inset;
+  caret-color: var(--text);
+}
+
+.cform__textarea {
+  min-height: 7rem;
+  resize: vertical;
+  line-height: var(--lh-relaxed);
+}
+
+/* ---- select -------------------------------------------------- */
+
+.cform__select-wrap {
+  position: relative;
+}
+
+.cform__select {
+  appearance: none;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+/* The dropdown list itself is drawn by the OS, so it needs real
+   colours rather than the transparent background of the control. */
+.cform__select option {
+  color: var(--text);
+  background: var(--bg-alt);
+}
+
+.cform__chevron {
+  position: absolute;
+  top: 50%;
+  right: 0.95rem;
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.cform__chevron svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- errors -------------------------------------------------- */
+
+.cform__error {
+  font-size: var(--fs-sm);
+  color: var(--cf-bad);
+}
+
+.cform__error--form {
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line-soft);
+}
+
+.cform__error--form a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---- honeypot -----------------------------------------------
+   Off-screen rather than display:none, which some bots detect.
+   -------------------------------------------------------------- */
+
+.cform__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---- footer row ---------------------------------------------- */
+
+.cform__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-5);
+  margin-top: var(--sp-2);
+}
+
+.cform__submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  padding: 0.95em 1.7em;
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--on-accent, var(--bg));
+  background: var(--text);
+  border-radius: var(--r-full);
+  transition:
+    background-color var(--d-base) var(--e-out-quint),
+    color var(--d-base) var(--e-out-quint),
+    transform var(--d-base) var(--e-out-quint);
+}
+
+.cform__submit:hover:not(:disabled) {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+.cform__submit:disabled {
+  cursor: progress;
+  opacity: 0.65;
+}
+
+.cform__submit-icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.cform__submit-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cform__spinner {
+  animation: spinSlow 900ms linear infinite;
+}
+
+.cform__note {
+  flex: 1 1 12rem;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+}
+
+/* The outcome is announced once, for a screen reader only. */
+.cform__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- sent ---------------------------------------------------- */
+
+.cform--done {
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-6);
+  border: 1px solid var(--ok-line);
+  border-radius: var(--r-lg);
+  background: var(--ok-wash);
+}
+
+.cform__done-mark {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  color: var(--ok);
+  border: 1px solid var(--ok-line);
+  border-radius: var(--r-full);
+}
+
+.cform__done-mark svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.cform__done-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 400;
+  color: var(--text);
+}
+
+.cform__done-text {
+  max-width: 44ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+.cform__again {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--line-strong);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.cform__again:hover {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cform__input,
+  .cform__submit,
+  .cform__again {
+    transition-duration: 1ms;
+  }
+  .cform__submit:hover:not(:disabled) {
+    transform: none;
+  }
+  .cform__spinner {
+    animation: none;
+  }
+}
+
+/* Shown when the mailto fallback has fired, so the visitor is never
+   left staring at a form that looks like it did nothing. */
+.cform__notice {
+  padding-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  border-top: 1px solid var(--line-soft);
+}
+
+.cform__notice a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* The success heading takes focus when the panel replaces the form,
+   so it needs a visible ring like any other focus target. */
+.cform__done-title:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Real hit area for the reset control (24px minimum). */
+.cform__again {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 0.35rem;
+}

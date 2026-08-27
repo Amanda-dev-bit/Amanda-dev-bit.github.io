@@ -1,0 +1,54 @@
+# ============================================================
+# Catch a broken build before it reaches main.
+#
+# Deploy only runs on main, so without this a pull request could
+# merge something that does not compile and the first sign of it
+# would be a failed deploy.
+# ============================================================
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches-ignore: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Check the build produced a real page
+        run: |
+          test -f dist/index.html || { echo "dist/index.html is missing"; exit 1; }
+          test -d dist/assets     || { echo "dist/assets is missing"; exit 1; }
+          # The portraits and the CV are referenced by the page, so a
+          # missing one is a broken deploy rather than a broken build.
+          for f in amanda.jpeg amanda2.jpeg og.png favicon.svg \
+                   "resume/Chukwujekwu-Amanda-Resume.pdf"; do
+            test -f "dist/$f" || { echo "dist/$f is missing"; exit 1; }
+          done
+          echo "Build output looks complete."

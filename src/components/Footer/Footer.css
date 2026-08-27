@@ -1,0 +1,461 @@
+/* ============================================================
+   FOOTER: the colophon.
+   Sits on the inset ground; `.on-dark` (tokens.css) flips the
+   semantic text/line tokens, so every colour here stays a token
+   in both themes.
+
+   NOTE ON SPECIFICITY: the shared stylesheets are bundled after
+   the component ones, so anything that also carries a utility
+   class (.display, .mono, .eyebrow) is overridden through a
+   two-class selector, `.footer .footer__wordmark`.
+   ============================================================ */
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(3.5rem, 2.2rem + 5vw, 7rem) clamp(1.5rem, 1.1rem + 1.4vw, 2.5rem);
+  background: var(--bg-inset);
+  color: var(--text);
+}
+
+/* Warm hairline along the join with the page above. */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--line) 38%, transparent 76%);
+  pointer-events: none;
+}
+
+/* ---- top area: three editorial columns ---------------------- */
+
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2.75rem, 2rem + 2.6vw, 4rem);
+}
+
+/* Long strings (the email) shrink instead of widening the grid. */
+.footer__col {
+  min-width: 0;
+}
+
+/* Two-up on tablets, the mark keeps the full measure. */
+@media (min-width: 35rem) {
+  .footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+
+  .footer__col--mark {
+    grid-column: 1 / -1;
+  }
+}
+
+/* The printed grid: offset columns divided by hairlines. */
+@media (min-width: 56.25rem) {
+  .footer__top {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.8fr) minmax(0, 1.05fr);
+    column-gap: clamp(2rem, 0.25rem + 4.4vw, 5rem);
+  }
+
+  .footer__col--mark {
+    grid-column: auto;
+    padding-inline-end: clamp(1rem, 3vw, 3.5rem);
+  }
+
+  .footer__col--nav,
+  .footer__col--links {
+    padding-inline-start: clamp(1.5rem, 0.5rem + 2.4vw, 3rem);
+    border-inline-start: 1px solid var(--line-soft);
+  }
+}
+
+/* ---- column 1: the mark -------------------------------------- */
+
+.footer__mark {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.26em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2.1rem, 1.5rem + 2.2vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  color: var(--text);
+}
+
+.footer__mark-dot {
+  flex: none;
+  width: 0.15em;
+  height: 0.15em;
+  margin-bottom: 0.2em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.footer__intro {
+  max-width: 44ch;
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+.footer .footer__place {
+  margin-top: var(--sp-5);
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
+/* ---- column headings ------------------------------------------ */
+
+.footer .footer__label {
+  margin-bottom: var(--sp-5);
+}
+
+/* ---- column 2: navigate --------------------------------------- */
+
+.footer__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.footer__nav-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding-block: 0.3rem;
+  color: var(--text-muted);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.footer .footer__nav-index {
+  color: var(--text-faint);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.footer__nav-label {
+  position: relative;
+  display: inline-block;
+  font-size: var(--fs-body);
+  transition: transform var(--d-slow) var(--e-out-quint);
+}
+
+/* The line wipes in from the left. */
+.footer__nav-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.18em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.footer__nav-link:hover,
+.footer__nav-link:focus-visible {
+  color: var(--text);
+}
+
+.footer__nav-link:hover .footer__nav-index,
+.footer__nav-link:focus-visible .footer__nav-index {
+  color: var(--accent);
+}
+
+.footer__nav-link:hover .footer__nav-label,
+.footer__nav-link:focus-visible .footer__nav-label {
+  transform: translate3d(0.3rem, 0, 0);
+}
+
+.footer__nav-link:hover .footer__nav-label::after,
+.footer__nav-link:focus-visible .footer__nav-label::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---- column 3: elsewhere + direct ------------------------------ */
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__links > li + li {
+  border-top: 1px solid var(--line-soft);
+}
+
+/* The direct-contact block is set apart by a stronger rule. */
+.footer__links > .footer__links-item--split {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--line);
+}
+
+.footer__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: 0.7rem;
+  color: var(--text-muted);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+  color: var(--accent);
+}
+
+.footer__link-text {
+  min-width: 0;
+}
+
+.footer__link-label {
+  display: block;
+  font-size: var(--fs-body);
+  overflow-wrap: anywhere;
+}
+
+.footer__link-label--value {
+  font-size: var(--fs-sm);
+}
+
+.footer .footer__link-kicker {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.footer__link:hover .footer__link-kicker,
+.footer__link:focus-visible .footer__link-kicker {
+  color: var(--accent-soft);
+}
+
+/* Two arrows in a clipped box: one leaves, one arrives. */
+.footer__go {
+  display: grid;
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  overflow: hidden;
+}
+
+.footer__go svg {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.footer__go svg + svg {
+  transform: translate3d(-100%, 100%, 0);
+}
+
+.footer__link:hover .footer__go svg,
+.footer__link:focus-visible .footer__go svg {
+  transform: translate3d(100%, -100%, 0);
+}
+
+.footer__link:hover .footer__go svg + svg,
+.footer__link:focus-visible .footer__go svg + svg {
+  transform: translate3d(0, 0, 0);
+  transition-delay: 70ms;
+}
+
+/* ---- the name, as texture -------------------------------------- */
+
+.footer__band {
+  position: relative;
+  overflow: hidden;
+  margin-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(1.75rem, 1.2rem + 2vw, 3.25rem);
+}
+
+.footer .footer__wordmark {
+  padding-block: 0.06em 0.16em;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 300;
+  font-size: clamp(3rem, 13vw, 11rem);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  color: color-mix(in srgb, var(--text) 10%, transparent);
+  hyphens: none;
+  user-select: none;
+  /* The entrance wipe lives on the inner .reveal-clip span, so this
+     higher-specificity rule no longer has to restate it. */
+  transition: color var(--d-slower) var(--e-out-expo);
+}
+
+@media (hover: hover) {
+  .footer:hover .footer__wordmark {
+    color: color-mix(in srgb, var(--accent) 26%, transparent);
+  }
+}
+
+/* ---- bottom bar -------------------------------------------------- */
+
+.footer__bar {
+  display: grid;
+  gap: var(--sp-4);
+  align-items: center;
+  padding-top: clamp(1.25rem, 0.9rem + 1.2vw, 2rem);
+  border-top: 1px solid var(--line);
+}
+
+.footer__legal {
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+}
+
+.footer__made {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-faint);
+}
+
+.footer__spark {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15em;
+  line-height: 1;
+  color: var(--accent-display);
+}
+
+/* Two-up: the button parks on the right of both text lines. */
+@media (min-width: 35rem) {
+  .footer__bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--sp-3) var(--sp-5);
+  }
+
+  .footer__top-wrap {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    justify-self: end;
+  }
+}
+
+/* Three-up: legal · colophon · button, on one hairline row. */
+@media (min-width: 56.25rem) {
+  .footer__bar {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--sp-5);
+  }
+
+  .footer__made {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+  }
+
+  .footer__top-wrap {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+/* ---- back to top --------------------------------------------------- */
+
+.footer__to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  padding: 0.8em 1.3em;
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  transition:
+    color var(--d-base) var(--e-out-quint),
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.footer__to-top:hover,
+.footer__to-top:focus-visible {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background-color: var(--accent-wash);
+}
+
+.footer__to-top-label {
+  white-space: nowrap;
+}
+
+.footer__to-top-icon {
+  display: grid;
+  flex: none;
+  width: 0.95rem;
+  height: 0.95rem;
+  overflow: hidden;
+}
+
+.footer__to-top-icon svg {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.footer__to-top-icon svg + svg {
+  transform: translate3d(0, 100%, 0);
+}
+
+.footer__to-top:hover .footer__to-top-icon svg,
+.footer__to-top:focus-visible .footer__to-top-icon svg {
+  transform: translate3d(0, -100%, 0);
+}
+
+.footer__to-top:hover .footer__to-top-icon svg + svg,
+.footer__to-top:focus-visible .footer__to-top-icon svg + svg {
+  transform: translate3d(0, 0, 0);
+  transition-delay: 70ms;
+}
+
+/* ---- reduced motion -------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer .footer__wordmark,
+  .footer__nav-label,
+  .footer__go svg,
+  .footer__to-top-icon svg {
+    transition: none;
+  }
+
+  /* One arrow only: nothing travels. */
+  .footer__go svg + svg,
+  .footer__to-top-icon svg + svg {
+    display: none;
+  }
+
+  .footer__link:hover .footer__go svg,
+  .footer__link:focus-visible .footer__go svg,
+  .footer__to-top:hover .footer__to-top-icon svg,
+  .footer__to-top:focus-visible .footer__to-top-icon svg,
+  .footer__nav-link:hover .footer__nav-label,
+  .footer__nav-link:focus-visible .footer__nav-label {
+    transform: none;
+  }
+}

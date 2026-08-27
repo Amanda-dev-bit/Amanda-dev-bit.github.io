@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Interface preview">
+  <rect x="0" y="0" width="1600" height="1000" rx="0" fill="#f6e9d3"/>
+  <defs>
+      <filter id="sh1" x="-20%" y="-20%" width="140%" height="150%">
+        <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="rgba(28,22,21,0.16)"/>
+      </filter>
+    </defs>
+    <g filter="url(#sh1)">
+      <rect x="58" y="58" width="1484" height="884" rx="16" fill="#ffffff"/>
+    </g>
+    <rect x="58" y="58" width="1484" height="54" rx="16" fill="#f7f7f7"/>
+    <rect x="58" y="96" width="1484" height="16" rx="0" fill="#f7f7f7"/>
+    <line x1="58" y1="112" x2="1542" y2="112" stroke="rgba(28,22,21,0.1)" stroke-width="1"/>
+    <circle cx="88" cy="85" r="6.5" fill="rgba(28,22,21,0.18)"/>
+    <circle cx="110" cy="85" r="6.5" fill="rgba(28,22,21,0.14)"/>
+    <circle cx="132" cy="85" r="6.5" fill="rgba(28,22,21,0.1)"/>
+    <rect x="630" y="72" width="340" height="26" rx="13" fill="rgba(28,22,21,0.06)"/>
+    <text x="800" y="90" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="rgba(28,22,21,0.45)" text-anchor="middle" letter-spacing="1.4">glovo · order in minutes</text>
+    <rect x="58" y="58" width="1484" height="884" rx="16" fill="none" stroke="rgba(28,22,21,0.1)"/><rect x="58" y="112" width="1484" height="830" rx="0" fill="#f7ecda"/><defs>
+      <filter id="ph2" x="-30%" y="-20%" width="160%" height="150%">
+        <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="rgba(28,22,21,0.2)"/>
+      </filter>
+    </defs>
+    <g filter="url(#ph2)">
+      <rect x="491" y="154" width="272" height="538.6" rx="31.28" fill="#1c1615"/>
+    </g>
+    <rect x="498" y="161" width="258" height="524.6" rx="26.28" fill="#ffffff"/>
+    <rect x="588.9" y="170" width="76.2" height="10" rx="5" fill="rgba(28,22,21,0.16)"/>
+    <rect x="491" y="154" width="272" height="538.56" rx="31.28" fill="none" stroke="rgba(28,22,21,0.14)"/><rect x="498" y="188" width="258" height="46" rx="0" fill="#ffffff"/><rect x="514" y="202" width="226" height="26" rx="13" fill="rgba(28,22,21,0.06)"/><rect x="514" y="248" width="58" height="26" rx="13" fill="#e0a53a"/><rect x="530" y="257" width="26" height="8" rx="4" fill="rgba(255,255,255,0.85)"/><rect x="580" y="248" width="74" height="26" rx="13" fill="rgba(28,22,21,0.06)"/><rect x="596" y="257" width="42" height="8" rx="4" fill="rgba(28,22,21,0.24)"/><rect x="662" y="248" width="62" height="26" rx="13" fill="rgba(28,22,21,0.06)"/><rect x="678" y="257" width="30" height="8" rx="4" fill="rgba(28,22,21,0.24)"/><rect x="514" y="292" width="226" height="134" rx="10" fill="#ffffff"/>
+    <rect x="514" y="292" width="226" height="134" rx="10" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#e9c179"/>
+      <stop offset="1" stop-color="#f1d8ad"/>
+    </linearGradient>
+    <clipPath id="c4"><rect x="522" y="300" width="210" height="76" rx="6"/></clipPath>
+  </defs>
+  <g clip-path="url(#c4)">
+    <rect x="522" y="300" width="210" height="76" rx="6" fill="url(#g3)"/>
+    <ellipse cx="690.9" cy="326.8" rx="38.0" ry="40.1" fill="rgba(224,165,58,0.3)"/><ellipse cx="593.4" cy="350.7" rx="38.3" ry="42.6" fill="rgba(255,255,255,0.4)"/><ellipse cx="661.1" cy="333.0" rx="18.8" ry="18.0" fill="rgba(224,165,58,0.3)"/>
+    <rect x="522" y="347.1" width="210" height="28.9" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="532" y="392" width="124.3" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="532" y="416" width="176.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="514" y="440" width="226" height="134" rx="10" fill="#ffffff"/>
+    <rect x="514" y="440" width="226" height="134" rx="10" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g5" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#e9c179"/>
+      <stop offset="1" stop-color="#f1d8ad"/>
+    </linearGradient>
+    <clipPath id="c6"><rect x="522" y="448" width="210" height="76" rx="6"/></clipPath>
+  </defs>
+  <g clip-path="url(#c6)">
+    <rect x="522" y="448" width="210" height="76" rx="6" fill="url(#g5)"/>
+    <ellipse cx="695.8" cy="483.2" rx="39.7" ry="29.9" fill="rgba(224,165,58,0.3)"/><ellipse cx="633.6" cy="509.3" rx="37.1" ry="33.4" fill="rgba(255,255,255,0.4)"/><ellipse cx="690.5" cy="489.6" rx="27.0" ry="28.0" fill="rgba(224,165,58,0.3)"/>
+    <rect x="522" y="495.1" width="210" height="28.9" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="532" y="540" width="124.3" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="532" y="564" width="176.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <rect x="514" y="588" width="226" height="134" rx="10" fill="#ffffff"/>
+    <rect x="514" y="588" width="226" height="134" rx="10" fill="none" stroke="rgba(28,22,21,0.08)"/>
+    <defs>
+    <linearGradient id="g7" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#e9c179"/>
+      <stop offset="1" stop-color="#f1d8ad"/>
+    </linearGradient>
+    <clipPath id="c8"><rect x="522" y="596" width="210" height="76" rx="6"/></clipPath>
+  </defs>
+  <g clip-path="url(#c8)">
+    <rect x="522" y="596" width="210" height="76" rx="6" fill="url(#g7)"/>
+    <ellipse cx="689.4" cy="618.6" rx="23.7" ry="25.3" fill="rgba(224,165,58,0.3)"/><ellipse cx="706.4" cy="610.8" rx="20.2" ry="19.3" fill="rgba(255,255,255,0.4)"/><ellipse cx="608.0" cy="646.7" rx="40.2" ry="28.8" fill="rgba(224,165,58,0.3)"/>
+    <rect x="522" y="643.1" width="210" height="28.9" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g>
+    
+    <rect x="532" y="688" width="124.3" height="12" rx="6" fill="rgba(28,22,21,0.5)"/>
+    <rect x="532" y="712" width="176.3" height="8" rx="4" fill="rgba(28,22,21,0.16)"/>
+    <defs>
+      <filter id="ph9" x="-30%" y="-20%" width="160%" height="150%">
+        <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="rgba(28,22,21,0.2)"/>
+      </filter>
+    </defs>
+    <g filter="url(#ph9)">
+      <rect x="837" y="154" width="272" height="538.6" rx="31.28" fill="#1c1615"/>
+    </g>
+    <rect x="844" y="161" width="258" height="524.6" rx="26.28" fill="#ffffff"/>
+    <rect x="934.9" y="170" width="76.2" height="10" rx="5" fill="rgba(28,22,21,0.16)"/>
+    <rect x="837" y="154" width="272" height="538.56" rx="31.28" fill="none" stroke="rgba(28,22,21,0.14)"/><rect x="844" y="188" width="258" height="46" rx="0" fill="#ffffff"/><rect x="860" y="202" width="226" height="26" rx="13" fill="rgba(28,22,21,0.06)"/><defs>
+    <linearGradient id="g10" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#e9c179"/>
+      <stop offset="1" stop-color="#f1d8ad"/>
+    </linearGradient>
+    <clipPath id="c11"><rect x="844" y="234" width="258" height="168" rx="0"/></clipPath>
+  </defs>
+  <g clip-path="url(#c11)">
+    <rect x="844" y="234" width="258" height="168" rx="0" fill="url(#g10)"/>
+    <ellipse cx="920.0" cy="298.3" rx="87.6" ry="81.3" fill="rgba(224,165,58,0.3)"/><ellipse cx="927.8" cy="267.9" rx="91.6" ry="71.5" fill="rgba(255,255,255,0.4)"/><ellipse cx="919.0" cy="296.6" rx="97.1" ry="82.3" fill="rgba(224,165,58,0.3)"/>
+    <rect x="844" y="338.2" width="258" height="63.8" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g><text x="862" y="440" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="24" font-weight="300" fill="#1c1615" text-anchor="start" letter-spacing="0">Mama Nkechi</text><rect x="862" y="468" width="222" height="50" rx="8" fill="rgba(28,22,21,0.04)"/><rect x="874" y="484" width="108.4" height="8" rx="4" fill="rgba(28,22,21,0.3)"/><rect x="874" y="500" width="77.4" height="7" rx="4" fill="rgba(28,22,21,0.13)"/><rect x="862" y="530" width="222" height="50" rx="8" fill="rgba(28,22,21,0.04)"/><rect x="874" y="546" width="108.4" height="8" rx="4" fill="rgba(28,22,21,0.3)"/><rect x="874" y="562" width="77.4" height="7" rx="4" fill="rgba(28,22,21,0.13)"/><rect x="862" y="592" width="222" height="50" rx="8" fill="rgba(28,22,21,0.04)"/><rect x="874" y="608" width="108.4" height="8" rx="4" fill="rgba(28,22,21,0.3)"/><rect x="874" y="624" width="77.4" height="7" rx="4" fill="rgba(28,22,21,0.13)"/><rect x="862" y="654" width="222" height="50" rx="8" fill="rgba(28,22,21,0.04)"/><rect x="874" y="670" width="108.4" height="8" rx="4" fill="rgba(28,22,21,0.3)"/><rect x="874" y="686" width="77.4" height="7" rx="4" fill="rgba(28,22,21,0.13)"/><rect x="862" y="734" width="222" height="44" rx="22" fill="#e0a53a"/><text x="800" y="908" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="rgba(28,22,21,0.4)" text-anchor="middle" letter-spacing="3">375 × 812</text>
+</svg>

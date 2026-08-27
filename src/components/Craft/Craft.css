@@ -1,0 +1,411 @@
+/* ============================================================
+   CRAFT: four disciplines as an editorial list.
+
+   No cards: hairline rules, an oversized italic index, and a
+   column of 2px meters that unroll once the row is in view.
+   Every colour is a token, so both themes come for free.
+   ============================================================ */
+
+.craft {
+  /* Stagger beats: mirrored by METER_STEP / METER_LEAD in Craft.jsx. */
+  --meter-step: 110ms;
+  --meter-lead: 200ms;
+  --tool-step: 45ms;
+
+  /* How far a row's hover wash reaches past the text column.
+     Always smaller than --gutter, so nothing can overflow. */
+  --bleed: clamp(0.5rem, 1.2vw, 1.25rem);
+  --row-y: clamp(2rem, 1.35rem + 2.4vw, 3.5rem);
+}
+
+/* ---- header ------------------------------------------------ */
+
+.craft__head {
+  display: grid;
+  gap: var(--sp-5);
+  margin-bottom: clamp(2.5rem, 1.4rem + 4vw, 5rem);
+}
+
+/* The shared section-head carries its own bottom margin; here the
+   wrapper owns the rhythm instead. */
+.craft .craft__head-main {
+  margin-bottom: 0;
+}
+
+/* Cormorant's italic "f" drops below the baseline, give the masked
+   line a little room underneath so the descender is never clipped.
+   Kept under 0.1em: any more and the incoming line would peek out
+   from under the mask mid-rise. */
+.craft .craft__head-main .line-mask {
+  padding-bottom: 0.08em;
+}
+
+.craft__note {
+  max-width: 32ch;
+  padding-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-faint);
+  border-top: 1px solid var(--line);
+}
+
+/* ---- the list ---------------------------------------------- */
+
+.craft__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.craft__row {
+  position: relative;
+  display: grid;
+  gap: var(--sp-5);
+  padding-block: var(--row-y);
+  padding-inline: var(--bleed);
+  margin-inline: calc(var(--bleed) * -1);
+  border-top: 1px solid var(--line);
+}
+
+/* The hover wash lives on a pseudo-element so the row keeps the
+   transition [data-reveal] gives it. Every content column below
+   is positioned, so it paints above this. */
+.craft__row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent-wash);
+  opacity: 0;
+  transition: opacity var(--d-slow) var(--e-out-quint);
+  pointer-events: none;
+}
+
+/* A 2px accent rule wipes down the left edge, over the hairline. */
+.craft__edge {
+  position: absolute;
+  top: -1px;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--tone, var(--accent));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--d-slow) var(--e-out-expo);
+  pointer-events: none;
+}
+
+/* ---- column 1: index + glyph -------------------------------- */
+
+.craft__mark {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.craft__index {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 1.5rem + 2.6vw, 3.75rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: var(--ls-tight);
+  color: var(--text);
+  opacity: 0.16;
+  transition:
+    opacity var(--d-slow) var(--e-out-quint),
+    color var(--d-slow) var(--e-out-quint);
+}
+
+.craft__glyph {
+  display: inline-flex;
+  width: clamp(1.4rem, 1.2rem + 0.7vw, 1.8rem);
+  color: var(--text-faint);
+  transition:
+    color var(--d-slow) var(--e-out-quint),
+    transform var(--d-slow) var(--e-out-expo);
+}
+
+.craft__glyph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- column 2: the writing ---------------------------------- */
+
+.craft__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.craft__title {
+  max-width: 20ch;
+  margin: 0;
+}
+
+.craft__blurb {
+  margin: 0;
+}
+
+.craft__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---- column 3: the meters ----------------------------------- */
+
+.craft__meters {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+
+.craft__meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.craft__meter-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin: 0;
+}
+
+.craft__meter-name {
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+
+/* Two classes deep so it beats .mono whatever order the sheets land
+   in. The reserved width keeps 0 → 94 from nudging the row. */
+.craft .craft__meter-value {
+  min-width: 3.6ch;
+  text-align: right;
+  color: var(--text-faint);
+  transition: color var(--d-slow) var(--e-out-quint);
+}
+
+.craft__meter-pct {
+  margin-left: 0.12em;
+  opacity: 0.55;
+}
+
+.craft__track {
+  display: block;
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+  background: var(--line-soft);
+  border-radius: var(--r-full);
+}
+
+/* --level (0–1) and --i are set inline on .craft__meter. */
+.craft__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tone, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--d-reveal) var(--e-out-expo)
+    calc(var(--i, 0) * var(--meter-step) + var(--meter-lead));
+  will-change: transform;
+}
+
+.craft__row[data-inview="true"] .craft__fill {
+  transform: scaleX(var(--level, 0));
+  will-change: auto;
+}
+
+/* ---- hover (pointer devices only, so it never sticks) -------- */
+
+@media (hover: hover) {
+  .craft__row:hover::before {
+    opacity: 1;
+  }
+
+  .craft__row:hover .craft__edge {
+    transform: scaleY(1);
+  }
+
+  .craft__row:hover .craft__index {
+    color: var(--tone, var(--accent));
+    opacity: 0.6;
+  }
+
+  .craft__row:hover .craft__glyph {
+    color: var(--tone, var(--accent));
+    transform: translate3d(0, calc(-2px * var(--motion)), 0);
+  }
+
+  .craft__row:hover .craft__meter-value {
+    color: var(--tone, var(--accent));
+  }
+}
+
+/* ---- toolbelt ------------------------------------------------ */
+
+.craft__toolbelt {
+  margin-top: clamp(2.5rem, 1.6rem + 3.4vw, 4.5rem);
+}
+
+.craft__toolbelt-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.craft .craft__toolbelt-label {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-faint);
+}
+
+.craft__toolbelt-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), var(--line) 45%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-slower) var(--e-out-expo) calc(var(--tool-step) * 2);
+}
+
+.craft__toolbelt[data-inview="true"] .craft__toolbelt-rule {
+  transform: scaleX(1);
+}
+
+.craft__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Two class names deep so this always beats .chip's own
+   transition, whatever order the stylesheets land in. */
+.craft__tools .craft__tool {
+  opacity: 0;
+  transform: translate3d(0, calc(0.75rem * var(--motion)), 0);
+  transition:
+    opacity var(--d-slow) var(--e-out-expo) calc(var(--i, 0) * var(--tool-step)),
+    transform var(--d-slow) var(--e-out-expo) calc(var(--i, 0) * var(--tool-step)),
+    color var(--d-base) var(--e-out-quint),
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.craft__toolbelt[data-inview="true"] .craft__tool {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- 600px: meters pair up while the row is still stacked ----- */
+
+@media (min-width: 37.5rem) {
+  .craft__meters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-4) var(--sp-6);
+  }
+}
+
+/* ---- 900px: the three-column row ------------------------------ */
+
+@media (min-width: 56.25rem) {
+  .craft__head {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    align-items: end;
+    gap: var(--sp-7);
+  }
+
+  .craft__note {
+    justify-self: end;
+  }
+
+  .craft__row {
+    grid-template-columns:
+      clamp(4.5rem, 8vw, 8rem)
+      minmax(0, 1.2fr)
+      minmax(0, 0.8fr);
+    align-items: start;
+    gap: var(--sp-6);
+  }
+
+  .craft__mark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-5);
+  }
+
+  /* Back to one meter per line: the column is narrow again. */
+  .craft__meters {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-5);
+  }
+}
+
+@media (min-width: 75rem) {
+  .craft__row {
+    gap: var(--sp-7);
+  }
+}
+
+/* ---- reduced motion ------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .craft {
+    --meter-step: 0ms;
+    --meter-lead: 0ms;
+    --tool-step: 0ms;
+  }
+
+  .craft__row::before,
+  .craft__edge,
+  .craft__index,
+  .craft__glyph,
+  .craft .craft__meter-value,
+  .craft__fill,
+  .craft__toolbelt-rule,
+  .craft__tools .craft__tool {
+    transition: none;
+  }
+
+  .craft__glyph {
+    transform: none;
+  }
+
+  .craft__fill {
+    will-change: auto;
+  }
+
+  .craft__toolbelt-rule {
+    transform: scaleX(1);
+  }
+
+  .craft__tools .craft__tool {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,551 @@
+/* ============================================================
+   JOURNEY: timeline + services.
+   One hairline rail, entries hung off it, a ghost numeral behind
+   each. Everything below is a token; both themes come free.
+   ============================================================ */
+
+/* Cormorant italic descenders ("journey") would otherwise catch on
+   the mask row's edge. A hair of room, less than the 110% offset
+   the hidden state sits at, so nothing peeks before it rises. */
+.journey .section-head__title .line-mask {
+  padding-bottom: 0.1em;
+}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+
+.journey__timeline {
+  --entry-pad: 1.65rem;
+
+  position: relative;
+  padding-left: var(--entry-pad);
+}
+
+/* The rail. Warm at the top where the current work sits, fading
+   out at the bottom rather than stopping dead. */
+.journey__timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.45rem;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--accent) 0%,
+    var(--line-strong) 12%,
+    var(--line) 58%,
+    transparent 100%
+  );
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform var(--d-reveal) var(--e-out-expo);
+}
+
+.journey__timeline[data-inview="true"]::before {
+  transform: scaleY(1);
+}
+
+.journey__entry {
+  position: relative;
+}
+
+.journey__entry:not(:last-child) {
+  padding-bottom: clamp(3.25rem, 1.6rem + 5.4vw, 6.5rem);
+}
+
+/* ---- the marker on the rail --------------------------------- */
+
+.journey__marker {
+  position: absolute;
+  top: 0.45rem;
+  left: calc(var(--entry-pad) * -1);
+  width: 0.6875rem;
+  height: 0.6875rem;
+  transform: translate3d(-50%, 0, 0) scale(0);
+  transition: transform var(--d-slow) var(--e-out-expo)
+    calc(var(--reveal-delay, 0ms) + 180ms);
+}
+
+.journey__entry[data-inview="true"] .journey__marker {
+  transform: translate3d(-50%, 0, 0) scale(1);
+}
+
+.journey__dot {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  background: var(--bg-alt);
+  transition:
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.journey__entry[data-status="in-progress"] .journey__dot {
+  border-color: var(--accent);
+}
+
+.journey__entry[data-status="current"] .journey__dot {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.journey__pulse {
+  position: absolute;
+  inset: -0.1875rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--r-full);
+  animation: pulseRing 2.6s var(--e-out-expo) infinite;
+}
+
+/* ---- entry body --------------------------------------------- */
+
+.journey__body {
+  position: relative;
+  /* Own stacking context so the ghost numeral can sit at -1
+     without falling behind the section ground. */
+  isolation: isolate;
+  /* And the crop that keeps the numeral off the page edge. */
+  overflow: hidden;
+  display: grid;
+  gap: var(--sp-4);
+}
+
+/* The oversized index, set in the display italic, cropped at the
+   right edge of its entry like a printed folio. */
+.journey__ghost {
+  position: absolute;
+  top: 0;
+  right: -0.05em;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(3.5rem, 1.4rem + 8.4vw, 6.5rem);
+  line-height: 0.86;
+  letter-spacing: var(--ls-tight);
+  color: var(--accent-display);
+  opacity: 0.12;
+  pointer-events: none;
+  user-select: none;
+  transform: translate3d(0, var(--parallax, 0px), 0);
+  transition: opacity var(--d-slow) var(--e-out-quint);
+}
+
+:root[data-theme="dark"] .journey__ghost {
+  opacity: 0.16;
+}
+
+/* ---- aside: period, kind, status ----------------------------- */
+
+.journey__aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-4);
+}
+
+.journey .journey__period {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  white-space: nowrap;
+}
+
+.journey__kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.journey__kind-icon {
+  display: grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--accent);
+  flex: none;
+}
+
+.journey__kind-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* The kind reads as the solid chip; the tags below are ghosted, so
+   the two never compete. Specificity here has to clear .chip:hover
+   from ui.css rather than rely on stylesheet order. */
+.journey .journey__kind-chip {
+  white-space: nowrap;
+}
+
+.journey .journey__tags .journey__tag {
+  background: transparent;
+  border-color: var(--line-soft);
+}
+
+/* ---- main column --------------------------------------------- */
+
+.journey__role {
+  max-width: 22ch;
+}
+
+.journey__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+}
+
+.journey__org {
+  color: var(--text-muted);
+}
+
+.journey__meta-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--r-full);
+  background: var(--line-strong);
+  flex: none;
+}
+
+.journey__summary {
+  margin-top: var(--sp-4);
+}
+
+/* ---- points --------------------------------------------------- */
+
+.journey__points {
+  display: grid;
+  gap: var(--sp-3);
+  max-width: var(--maxw-prose);
+  margin-top: var(--sp-5);
+}
+
+.journey__point {
+  --point-delay: calc(var(--reveal-delay, 0ms) + var(--i, 0) * 90ms + 260ms);
+
+  position: relative;
+  padding-left: 2rem;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translate3d(0, calc(0.7rem * var(--motion)), 0);
+  transition:
+    opacity var(--d-slow) var(--e-out-expo) var(--point-delay),
+    transform var(--d-slow) var(--e-out-expo) var(--point-delay);
+}
+
+/* The accent dash that stands in for a bullet. */
+.journey__point::before {
+  content: "";
+  position: absolute;
+  top: 0.82em;
+  left: 0;
+  width: 1.15rem;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-slow) var(--e-out-expo) var(--point-delay);
+}
+
+.journey__entry[data-inview="true"] .journey__point {
+  opacity: 1;
+  transform: none;
+}
+
+.journey__entry[data-inview="true"] .journey__point::before {
+  transform: scaleX(1);
+}
+
+/* ---- tags ----------------------------------------------------- */
+
+.journey__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+}
+
+/* ---- >= 768px: a roomier rail --------------------------------- */
+
+@media (min-width: 48rem) {
+  .journey__timeline {
+    --entry-pad: clamp(2.5rem, 1.1rem + 3vw, 4rem);
+  }
+
+  .journey__marker {
+    width: 0.8125rem;
+    height: 0.8125rem;
+  }
+
+  .journey__body {
+    gap: var(--sp-5);
+  }
+}
+
+/* ---- >= 1024px: meta becomes its own narrow column ------------- */
+
+@media (min-width: 64rem) {
+  .journey__body {
+    grid-template-columns: minmax(0, 12.5rem) minmax(0, 1fr);
+    gap: clamp(2rem, 0.6rem + 2.4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .journey__aside {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding-top: 0.35rem;
+  }
+
+  .journey__ghost {
+    font-size: clamp(5rem, 2rem + 5vw, 7rem);
+  }
+}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+
+.journey__services {
+  margin-top: clamp(4.5rem, 2.2rem + 7.4vw, 9.5rem);
+}
+
+.journey__services-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+
+.journey .journey__label {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-widest);
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.journey__label-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-reveal) var(--e-out-expo) 120ms;
+}
+
+.journey__services-head[data-inview="true"] .journey__label-rule {
+  transform: scaleX(1);
+}
+
+.journey__list {
+  border-top: 1px solid var(--line);
+}
+
+.journey__service {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "index title"
+    ".     text";
+  gap: var(--sp-3) var(--sp-4);
+  align-items: start;
+  padding: clamp(1.5rem, 0.9rem + 1.6vw, 2.4rem) clamp(0.5rem, 0.1rem + 1.2vw, 1.5rem);
+  border-bottom: 1px solid var(--line);
+  transition: border-color var(--d-base) var(--e-out-quint);
+}
+
+/* The warm wash wipes across from the left rather than fading in. */
+.journey__service::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--accent-wash);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--d-slow) var(--e-out-quint);
+}
+
+/* Stacked layout aligns to the top, so the index needs a nudge to
+   sit optically with the display title. The wide layout aligns on
+   the shared baseline instead and the nudge comes back off. */
+.journey .journey__service-index {
+  grid-area: index;
+  padding-top: 0.55em;
+  color: var(--text-faint);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.journey__service-title {
+  grid-area: title;
+  max-width: 24ch;
+  transition: transform var(--d-slow) var(--e-out-quint);
+}
+
+.journey__service-text {
+  grid-area: text;
+  max-width: 52ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}
+
+.journey__service-arrow {
+  grid-area: arrow;
+  display: none;
+  place-items: center;
+  justify-self: end;
+  align-self: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translate3d(-0.65rem, 0, 0);
+  transition:
+    opacity var(--d-base) var(--e-out-quint),
+    transform var(--d-slow) var(--e-out-quint);
+}
+
+.journey__service-arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   HOVER: deliberate, and only where a pointer can hover, so a
+   touch tap never leaves a row stuck in its warmed state.
+   ============================================================ */
+
+@media (hover: hover) {
+  .journey__entry:hover .journey__dot {
+    border-color: var(--accent);
+  }
+
+  .journey__entry:hover .journey__ghost {
+    opacity: 0.19;
+  }
+
+  :root[data-theme="dark"] .journey__entry:hover .journey__ghost {
+    opacity: 0.24;
+  }
+
+  .journey .journey__tags .journey__tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .journey__service:hover {
+    border-bottom-color: color-mix(in srgb, var(--accent) 42%, transparent);
+  }
+
+  .journey__service:hover::before {
+    transform: scaleX(1);
+  }
+
+  .journey__service:hover .journey__service-index {
+    color: var(--accent);
+  }
+
+  .journey__service:hover .journey__service-title {
+    transform: translate3d(0.45rem, 0, 0);
+  }
+
+  .journey__service:hover .journey__service-arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 48rem) {
+  .journey__service {
+    grid-template-columns: 3.25rem minmax(0, 1fr) minmax(0, 1.15fr) 1.35rem;
+    grid-template-areas: "index title text arrow";
+    gap: clamp(1rem, 0.2rem + 2.2vw, 2.75rem);
+    align-items: baseline;
+  }
+
+  .journey .journey__service-index {
+    padding-top: 0;
+  }
+
+  .journey__service-arrow {
+    display: grid;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION: nothing travels, nothing pulses.
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .journey__timeline::before,
+  .journey__marker,
+  .journey__dot,
+  .journey__ghost,
+  .journey__point,
+  .journey__point::before,
+  .journey__label-rule,
+  .journey__service,
+  .journey__service::before,
+  .journey__service-index,
+  .journey__service-title,
+  .journey__service-arrow {
+    transition: none;
+  }
+
+  .journey__timeline::before {
+    transform: scaleY(1);
+  }
+
+  .journey__marker,
+  .journey__entry[data-inview="true"] .journey__marker {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  .journey__pulse {
+    animation: none;
+  }
+
+  .journey__ghost {
+    transform: none;
+  }
+
+  .journey__point,
+  .journey__entry[data-inview="true"] .journey__point {
+    opacity: 1;
+    transform: none;
+  }
+
+  .journey__point::before,
+  .journey__entry[data-inview="true"] .journey__point::before {
+    transform: scaleX(1);
+  }
+
+  .journey__label-rule,
+  .journey__services-head[data-inview="true"] .journey__label-rule {
+    transform: scaleX(1);
+  }
+
+  /* Hover still answers: it just answers instantly, and the
+     title stops sliding. */
+  .journey__service:hover .journey__service-title {
+    transform: none;
+  }
+
+  .journey__service:hover .journey__service-arrow {
+    transform: none;
+  }
+}

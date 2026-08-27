@@ -1,0 +1,192 @@
+/* ============================================================
+   CURSOR
+   A hairline ring that trails a solid dot. States are driven by
+   data-attributes on .cursor flipping the custom properties the
+   shapes below read, so nothing here fights the inline
+   translate3d() the rAF loop writes onto the trackers.
+   ============================================================ */
+
+.cursor {
+  /* Generates no box on purpose. A positioned/z-indexed wrapper
+     would open a stacking context and the blend below would then
+     composite against nothing instead of against the page. */
+  display: contents;
+  pointer-events: none;
+
+  --cur-dot: 6px;
+  --cur-ring: 40px;
+  --cur-halo: 104px;
+
+  /* Default (idle) state. */
+  --cur-ring-s: 1;
+  --cur-ring-o: 1;
+  --cur-halo-s: 0.42;
+  --cur-halo-o: 0;
+  --cur-dot-s: 1;
+  --cur-dot-o: 1;
+  --cur-label-o: 0;
+  --cur-label-y: 0.45rem;
+  --cur-press: 1;
+}
+
+/* Over a link, a button, anything opted in with data-cursor="hover":
+   the small ring dissolves outward, the wide halo takes its place
+   and the dot gets out of the way. */
+.cursor[data-mode="hover"] {
+  --cur-ring-s: 2.6;
+  --cur-ring-o: 0;
+  --cur-halo-s: 1;
+  --cur-halo-o: 1;
+  --cur-dot-s: 0.3;
+  --cur-dot-o: 0;
+}
+
+/* Over data-cursor="view": the halo opens a little wider still and
+   the label rises into it. */
+.cursor[data-mode="view"] {
+  --cur-ring-s: 2.9;
+  --cur-ring-o: 0;
+  --cur-halo-s: 1.28;
+  --cur-halo-o: 1;
+  --cur-dot-s: 0.3;
+  --cur-dot-o: 0;
+  --cur-label-o: 1;
+  --cur-label-y: 0rem;
+}
+
+/* Press: a brief contraction of the whole assembly. */
+.cursor[data-down="true"] {
+  --cur-press: 0.78;
+}
+
+/* ---- the two trackers -------------------------------------- */
+/* Each is its own fixed, blended layer so the blend group is the
+   page itself. JS writes only `transform` here. */
+.cursor__lag,
+.cursor__dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  color: var(--c-bone);
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity var(--d-base) var(--e-out-quint);
+}
+
+.cursor[data-visible="true"] .cursor__lag,
+.cursor[data-visible="true"] .cursor__dot {
+  opacity: 1;
+  will-change: transform;
+}
+
+/* Where the accent has to stand in, difference blending gives the
+   contrast for free, but not everywhere supports it. */
+@supports not (mix-blend-mode: difference) {
+  .cursor__lag,
+  .cursor__dot {
+    color: var(--accent);
+  }
+}
+
+/* ---- ring + halo ------------------------------------------- */
+/* The press scale lives on the stack so the ring/halo transforms
+   stay free to run at their own, slower easing. */
+.cursor__stack {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(var(--cur-press));
+  transition: transform var(--d-fast) var(--e-out-quint);
+}
+
+.cursor__ring,
+.cursor__halo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid currentColor;
+  border-radius: var(--r-full);
+  transition:
+    transform var(--d-slow) var(--e-out-quint),
+    opacity var(--d-base) var(--e-out-quint);
+}
+
+/* Two hairlines rather than one scaled hairline: the ring the
+   pointer rests in and the halo it opens into are both drawn at
+   their true size, so the stroke stays 1px in every state. */
+.cursor__ring {
+  width: var(--cur-ring);
+  height: var(--cur-ring);
+  margin-top: calc(var(--cur-ring) / -2);
+  margin-left: calc(var(--cur-ring) / -2);
+  transform: scale(var(--cur-ring-s));
+  opacity: var(--cur-ring-o);
+}
+
+.cursor__halo {
+  width: var(--cur-halo);
+  height: var(--cur-halo);
+  margin-top: calc(var(--cur-halo) / -2);
+  margin-left: calc(var(--cur-halo) / -2);
+  transform: scale(var(--cur-halo-s));
+  opacity: var(--cur-halo-o);
+}
+
+/* ---- label -------------------------------------------------- */
+/* Sits outside the halo's scale so the type is never resampled. */
+.cursor__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: calc(var(--cur-halo) * 0.78);
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  text-align: center;
+  transform: translate(-50%, calc(-50% + var(--cur-label-y)));
+  opacity: var(--cur-label-o);
+  transition:
+    transform var(--d-slow) var(--e-out-quint),
+    opacity var(--d-base) var(--e-out-quint);
+}
+
+/* ---- dot ---------------------------------------------------- */
+.cursor__dot-shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--cur-dot);
+  height: var(--cur-dot);
+  margin-top: calc(var(--cur-dot) / -2);
+  margin-left: calc(var(--cur-dot) / -2);
+  border-radius: var(--r-full);
+  background: currentColor;
+  transform: scale(calc(var(--cur-dot-s) * var(--cur-press)));
+  opacity: var(--cur-dot-o);
+  transition:
+    transform var(--d-base) var(--e-out-quint),
+    opacity var(--d-base) var(--e-out-quint);
+}
+
+/* ---- motion / pointer guards -------------------------------- */
+/* The component already refuses to mount for these users; this is
+   the belt to that pair of braces. */
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    display: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}

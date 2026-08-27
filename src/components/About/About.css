@@ -1,0 +1,489 @@
+/* ============================================================
+   ABOUT
+   A 42/58 editorial split: portrait plate left, story right,
+   counted strip beneath both. Every colour is a token, so dark
+   mode needs one local override only, the clay block, whose
+   raw-palette value has no dark counterpart.
+   ============================================================ */
+
+.about {
+  /* How far the block and the hairline frame step away from the
+     image. Also the width the caption gutter has to clear. */
+  --about-off: clamp(0.9rem, 0.35rem + 1.6vw, 1.6rem);
+  --about-block: var(--c-blush);
+}
+
+:root[data-theme="dark"] .about {
+  --about-block: color-mix(in srgb, var(--accent) 14%, var(--bg-alt));
+}
+
+/* ---- grid ---------------------------------------------------- */
+
+.about__grid {
+  display: grid;
+  align-items: start;
+  gap: clamp(3.25rem, 1.5rem + 7vw, 6rem);
+}
+
+/* Story first in the DOM so the heading opens the section for a
+   screen reader; the plate is placed back into column one here. */
+@media (min-width: 56.25rem) {
+  .about__grid {
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    column-gap: clamp(3rem, 1rem + 5vw, 7rem);
+  }
+
+  .about__media {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .about__body {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+/* ---- portrait plate ------------------------------------------- */
+
+.about__media {
+  position: relative;
+}
+
+/* Reserved gutter for the vertical caption: wide enough that the
+   caption never reaches past the container on one side, nor into
+   the offset clay block on the other. */
+@media (min-width: 48rem) {
+  .about__media {
+    padding-left: clamp(2.25rem, 1.4rem + 2vw, 3.25rem);
+  }
+}
+
+/* The plate holds still while the story scrolls past it. No
+   overflow rule anywhere on this section, it would turn an
+   ancestor into a scroll container and kill the sticky. */
+@media (min-width: 64rem) {
+  .about__media {
+    position: sticky;
+    top: calc(var(--header-h) + clamp(1rem, 3vw, 2.5rem));
+  }
+}
+
+.about__frame {
+  position: relative;
+  display: block;
+}
+
+/* The two offset rectangles start flush under the image and step
+   outward as the plate arrives, depth built from geometry. */
+.about__block,
+.about__outline {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-md);
+  transform: translate3d(0, 0, 0);
+  transition: transform var(--d-reveal) var(--e-out-expo) 140ms;
+}
+
+.about__block {
+  z-index: 0;
+  background: var(--about-block);
+}
+
+.about__frame[data-inview="true"] .about__block {
+  transform: translate3d(calc(-1 * var(--about-off)), var(--about-off), 0);
+}
+
+.about__outline {
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  pointer-events: none;
+  transition-delay: 240ms;
+}
+
+.about__frame[data-inview="true"] .about__outline {
+  transform: translate3d(var(--about-off), calc(-1 * var(--about-off)), 0);
+}
+
+.about__frame:hover .about__outline {
+  border-color: var(--accent);
+}
+
+/* The image window unrolls from the top. */
+.about__window {
+  position: relative;
+  z-index: 1;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--bg);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--d-reveal) var(--e-out-expo);
+}
+
+.about__frame[data-inview="true"] .about__window {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Oversized on purpose: the parallax travel never exposes an
+   edge. Only this wrapper is translated. */
+.about__pan {
+  position: absolute;
+  inset: -12% 0;
+  display: block;
+  transform: translate3d(0, var(--parallax, 0), 0);
+}
+
+.about__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform var(--d-slower) var(--e-out-quint);
+}
+
+.about__frame:hover .about__img {
+  transform: scale(1.04);
+}
+
+/* ---- vertical caption ------------------------------------------ */
+
+.about__caption {
+  display: none;
+}
+
+/* The extra .about qualifier on the rules below is deliberate:
+   component CSS is bundled ahead of utilities.css, so anything
+   that competes with a shared class (.mono, .lead, .chip,
+   .section-head) needs the weight to win. */
+@media (min-width: 48rem) {
+  .about .about__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--text-faint);
+    opacity: 0;
+    transition: opacity var(--d-slower) var(--e-out-expo) 620ms;
+  }
+
+  .about__frame[data-inview="true"] ~ .about__caption {
+    opacity: 1;
+  }
+}
+
+/* ---- story ------------------------------------------------------ */
+
+.about__body {
+  min-width: 0;
+}
+
+.about .about__head {
+  margin-bottom: clamp(2rem, 1.2rem + 2.6vw, 3.25rem);
+}
+
+/* A ceiling, not a measure, the two lines are set explicitly and
+   should not be forced to wrap by it. */
+.about__title {
+  max-width: 20ch;
+}
+
+/* Masked rows clip on overflow; the padding keeps descenders and
+   the italic tail of "craft" intact. */
+.about__title .line-mask {
+  padding-block: 0.06em 0.16em;
+}
+
+.about__title .line-mask + .line-mask {
+  margin-top: -0.16em;
+}
+
+.about .about__lead {
+  max-width: 46ch;
+}
+
+.about__prose {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.1rem, 0.8rem + 1vw, 1.6rem);
+}
+
+/* An initial in the display face, the one flourish in the column. */
+.about__para--open::first-letter {
+  float: left;
+  margin: 0.06em 0.1em 0 0;
+  font-family: var(--font-display);
+  font-size: 3.4em;
+  font-weight: 300;
+  line-height: 0.84;
+  color: var(--accent-display);
+}
+
+.about__rule {
+  margin-block: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+}
+
+.about__rule-line {
+  display: block;
+  width: 100%;
+  transform: scaleX(0);
+  transition: transform var(--d-slower) var(--e-out-expo) 120ms;
+}
+
+.about__rule[data-inview="true"] .about__rule-line {
+  transform: scaleX(1);
+}
+
+/* ---- facts ------------------------------------------------------- */
+
+.about__facts {
+  display: grid;
+  max-width: 34rem;
+}
+
+.about__fact {
+  display: grid;
+  gap: 0.1rem var(--sp-5);
+  padding-block: clamp(0.7rem, 0.55rem + 0.6vw, 1rem);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.about__fact:first-of-type {
+  border-top: 1px solid var(--line-soft);
+}
+
+@media (min-width: 26rem) {
+  .about__fact {
+    grid-template-columns: minmax(7rem, 0.34fr) 1fr;
+    align-items: baseline;
+  }
+}
+
+.about__fact-label {
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.about__fact-value {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text);
+}
+
+/* ---- languages + CV ---------------------------------------------- */
+
+.about__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-5) var(--sp-6);
+  margin-top: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+}
+
+.about .about__mini {
+  margin-bottom: var(--sp-3);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.about__langs {
+  min-width: 0;
+}
+
+.about__cv {
+  flex: none;
+}
+
+.about__lang-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.about .about__lang {
+  gap: 0.55rem;
+}
+
+.about__lang-level {
+  padding-left: 0.55rem;
+  border-left: 1px solid var(--line);
+  color: var(--accent);
+  transition: border-color var(--d-base) var(--e-out-quint);
+}
+
+.about__lang:hover .about__lang-level {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.about__icon {
+  width: 1em;
+  height: 1em;
+}
+
+/* ---- counted strip ------------------------------------------------ */
+
+.about__stats {
+  display: grid;
+  margin-top: clamp(3.5rem, 2rem + 6vw, 7rem);
+  padding-top: clamp(1.75rem, 1rem + 2.6vw, 3rem);
+  border-top: 1px solid var(--line);
+}
+
+.about__stat {
+  position: relative;
+  padding-block: clamp(1.25rem, 1rem + 1.4vw, 1.75rem);
+  opacity: 0;
+  transform: translate3d(0, calc(1.5rem * var(--motion)), 0);
+  transition:
+    opacity var(--d-slower) var(--e-out-expo) calc(var(--i, 0) * 110ms),
+    transform var(--d-slower) var(--e-out-expo) calc(var(--i, 0) * 110ms);
+}
+
+.about__stats[data-inview="true"] .about__stat {
+  opacity: 1;
+  transform: none;
+}
+
+.about__stat + .about__stat {
+  border-top: 1px solid var(--line-soft);
+}
+
+.about__stat-figure {
+  display: flex;
+  align-items: baseline;
+  gap: 0.06em;
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: var(--ls-tight);
+  color: var(--text);
+}
+
+.about__stat-value {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+.about__stat-suffix {
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  font-style: italic;
+  color: var(--accent-display);
+}
+
+.about__stat-label {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-wide);
+  color: var(--text);
+}
+
+.about__stat-note {
+  margin-top: 0.3rem;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* Three across, divided by hairlines that draw downward. */
+@media (min-width: 48rem) {
+  .about__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(1.75rem, 0.5rem + 3.4vw, 4rem);
+  }
+
+  .about__stat {
+    padding-block: 0;
+    padding-left: clamp(1.5rem, 0.5rem + 2.6vw, 3rem);
+  }
+
+  .about__stat + .about__stat {
+    border-top: 0;
+  }
+
+  .about__stat:first-child {
+    padding-left: 0;
+  }
+
+  .about__stat:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    top: 0.1em;
+    bottom: 0.35rem;
+    left: 0;
+    width: 1px;
+    background: var(--line);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--d-slower) var(--e-out-expo) calc(var(--i, 0) * 110ms + 180ms);
+  }
+
+  .about__stats[data-inview="true"] .about__stat:not(:first-child)::before {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- narrow screens ------------------------------------------------ */
+
+@media (max-width: 30rem) {
+  .about__foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---- reduced motion ------------------------------------------------- */
+/* The offsets of the block and the hairline frame are design, not
+   motion: they stay, they simply stop travelling. */
+
+@media (prefers-reduced-motion: reduce) {
+  .about__block,
+  .about__outline,
+  .about__window,
+  .about__img,
+  .about .about__caption,
+  .about__rule-line,
+  .about__stat,
+  .about__stat:not(:first-child)::before {
+    transition: none;
+  }
+
+  .about__window {
+    clip-path: none;
+  }
+
+  .about__pan,
+  .about__img,
+  .about__frame:hover .about__img {
+    transform: none;
+  }
+
+  .about .about__caption {
+    opacity: 1;
+  }
+
+  .about__rule-line {
+    transform: scaleX(1);
+  }
+
+  .about__stat {
+    opacity: 1;
+    transform: none;
+  }
+
+  .about__stat:not(:first-child)::before {
+    transform: scaleY(1);
+  }
+}

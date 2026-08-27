@@ -1,0 +1,497 @@
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-header);
+  height: var(--header-h);
+  transition:
+    height var(--d-slow) var(--e-out-expo),
+    transform var(--d-slow) var(--e-out-expo),
+    background-color var(--d-slow) var(--e-out-expo),
+    border-color var(--d-slow) var(--e-out-expo),
+    backdrop-filter var(--d-slow) var(--e-out-expo);
+  border-bottom: 1px solid transparent;
+}
+
+.header--condensed {
+  height: 4.25rem;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom-color: var(--line-soft);
+}
+
+.header--hidden {
+  transform: translate3d(0, -102%, 0);
+}
+
+/* While the menu is up the bar sits above the overlay so its X stays
+   clickable, goes transparent, and borrows the inverted text tokens. */
+.header[data-menu="open"] {
+  z-index: calc(var(--z-overlay) + 1);
+  height: var(--header-h);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+  --text: var(--text-invert);
+  --text-muted: var(--text-invert-muted);
+  --text-faint: var(--text-invert-faint);
+  --line: var(--line-invert);
+}
+
+.header[data-menu="open"] .header__mark,
+.header[data-menu="open"] .header__theme,
+.header[data-menu="open"] .header__burger {
+  color: var(--text-invert);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  height: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- wordmark ---------------------------------------------- */
+.header__mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28em;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1.2rem + 0.5vw, 1.7rem);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  white-space: nowrap;
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.header__mark:hover { color: var(--accent); }
+
+.header__mark-dot {
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform var(--d-base) var(--e-spring);
+}
+
+.header__mark:hover .header__mark-dot {
+  transform: scale(1.5);
+}
+
+/* ---- desktop nav -------------------------------------------- */
+.header__nav {
+  display: none;
+}
+
+.header__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 0.4rem + 2vw, 2.6rem);
+}
+
+.header__link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  padding-block: 0.4rem;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.header__index {
+  font-size: 0.62em;
+  color: var(--text-faint);
+  transition: color var(--d-base) var(--e-out-quint), opacity var(--d-base) var(--e-out-quint);
+  opacity: 0.7;
+}
+
+/* The underline is drawn on hover and stays drawn when active. */
+.header__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.header__link:hover,
+.header__link:focus-visible {
+  color: var(--text);
+}
+
+.header__link:hover .header__index,
+.header__link:focus-visible .header__index {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.header__link:hover::after,
+.header__link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.header__link--active {
+  color: var(--accent);
+}
+
+.header__link--active .header__index {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.header__link--active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---- actions ------------------------------------------------ */
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.4vw, 1rem);
+}
+
+.header__theme {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-full);
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition:
+    color var(--d-base) var(--e-out-quint),
+    border-color var(--d-base) var(--e-out-quint),
+    background-color var(--d-base) var(--e-out-quint);
+}
+
+.header__theme:hover {
+  color: var(--accent);
+  border-color: var(--line);
+  background: var(--accent-wash);
+}
+
+.header__theme-icons {
+  position: relative;
+  display: grid;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.header__icon {
+  width: 100%;
+  height: 100%;
+}
+
+.header__icon--sun,
+.header__icon--moon {
+  grid-area: 1 / 1;
+  transition:
+    transform var(--d-slow) var(--e-out-expo),
+    opacity var(--d-base) var(--e-out-quint);
+}
+
+.header__icon--sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.header__icon--moon {
+  opacity: 0;
+  transform: rotate(-70deg) scale(0.5);
+}
+
+:root[data-theme="dark"] .header__icon--sun {
+  opacity: 0;
+  transform: rotate(70deg) scale(0.5);
+}
+
+:root[data-theme="dark"] .header__icon--moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* ---- résumé link -------------------------------------------- */
+.header__resume {
+  display: none;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.6rem 0;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  position: relative;
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.header__resume::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.35rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.header__resume:hover,
+.header__resume:focus-visible {
+  color: var(--accent);
+}
+
+.header__resume:hover::after,
+.header__resume:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.header__icon--dl {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.header__resume:hover .header__icon--dl {
+  transform: translateY(2px);
+}
+
+/* ---- burger -------------------------------------------------- */
+.header__burger {
+  position: relative;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-full);
+  color: var(--text);
+  transition: background-color var(--d-base) var(--e-out-quint);
+}
+
+.header__burger:hover {
+  background: var(--accent-wash);
+}
+
+.header__burger-line {
+  display: block;
+  width: 1.35rem;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: transform var(--d-slow) var(--e-out-expo);
+}
+
+.header__burger--open {
+  color: var(--text-invert);
+}
+
+.header__burger--open .header__burger-line:first-child {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.header__burger--open .header__burger-line:last-child {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  pointer-events: none;
+}
+
+.menu--open {
+  pointer-events: auto;
+}
+
+.menu__panel {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-7);
+  padding: calc(var(--header-h) + var(--sp-6)) var(--gutter) var(--sp-7);
+  background: var(--bg-inset);
+  /* The panel wipes down from the top. */
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--d-slower) var(--e-out-expo);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.menu--open .menu__panel {
+  clip-path: inset(0 0 0 0);
+}
+
+.menu__panel:focus { outline: none; }
+
+.menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 1.5vw, 0.9rem);
+}
+
+.menu__item {
+  overflow: hidden;
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.35rem;
+  color: var(--text-invert);
+  transform: translate3d(0, 110%, 0);
+  transition: transform var(--d-slower) var(--e-out-expo);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.menu--open .menu__link {
+  transform: translate3d(0, 0, 0);
+}
+
+.menu__index {
+  font-size: 0.7rem;
+  color: var(--accent);
+  flex: none;
+}
+
+.menu__label {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 1.2rem + 5.4vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.08;
+  transition: color var(--d-base) var(--e-out-quint), transform var(--d-base) var(--e-out-quint);
+}
+
+.menu__arrow {
+  margin-left: auto;
+  font-size: 1.1rem;
+  color: var(--accent);
+  opacity: 0;
+  transform: translate3d(-0.6rem, 0, 0);
+  transition: opacity var(--d-base) var(--e-out-quint), transform var(--d-base) var(--e-out-quint);
+}
+
+.menu__link:hover .menu__label,
+.menu__link:focus-visible .menu__label {
+  color: var(--accent);
+  transform: translate3d(0.4rem, 0, 0);
+}
+
+.menu__link:hover .menu__arrow,
+.menu__link:focus-visible .menu__arrow {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.menu__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line-invert-soft);
+  opacity: 0;
+  transform: translate3d(0, 1.5rem, 0);
+  transition:
+    opacity var(--d-slow) var(--e-out-expo) 320ms,
+    transform var(--d-slow) var(--e-out-expo) 320ms;
+}
+
+.menu--open .menu__foot {
+  opacity: 1;
+  transform: none;
+}
+
+.menu__email {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.9rem + 1.4vw, 1.5rem);
+  color: var(--text-invert);
+  overflow-wrap: anywhere;
+}
+
+.menu__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+}
+
+.menu__social {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--text-invert-muted);
+  transition: color var(--d-base) var(--e-out-quint);
+}
+
+.menu__social:hover,
+.menu__social:focus-visible {
+  color: var(--accent);
+}
+
+.menu__note {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--text-invert-faint);
+}
+
+/* ============================================================
+   BREAKPOINTS
+   ============================================================ */
+
+@media (min-width: 900px) {
+  .header__nav { display: block; }
+  .header__resume { display: inline-flex; }
+  .header__burger { display: none; }
+  .menu { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header__link::after,
+  .header__resume::after,
+  .header__burger-line,
+  .menu__panel,
+  .menu__link,
+  .menu__foot,
+  .header__icon--sun,
+  .header__icon--moon {
+    transition-duration: 1ms;
+  }
+  /* Keep the clip-path, it is what hides the closed panel. Only the
+     duration collapses, so the menu appears instantly instead of wiping. */
+}

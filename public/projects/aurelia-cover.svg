@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Interface preview">
+  <rect x="0" y="0" width="1600" height="1000" rx="0" fill="#f2e4df"/>
+  <defs>
+      <filter id="sh1" x="-20%" y="-20%" width="140%" height="150%">
+        <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="rgba(28,22,21,0.16)"/>
+      </filter>
+    </defs>
+    <g filter="url(#sh1)">
+      <rect x="58" y="58" width="1484" height="884" rx="16" fill="#fbf8f4"/>
+    </g>
+    <rect x="58" y="58" width="1484" height="54" rx="16" fill="#f3f0ec"/>
+    <rect x="58" y="96" width="1484" height="16" rx="0" fill="#f3f0ec"/>
+    <line x1="58" y1="112" x2="1542" y2="112" stroke="rgba(28,22,21,0.1)" stroke-width="1"/>
+    <circle cx="88" cy="85" r="6.5" fill="rgba(28,22,21,0.18)"/>
+    <circle cx="110" cy="85" r="6.5" fill="rgba(28,22,21,0.14)"/>
+    <circle cx="132" cy="85" r="6.5" fill="rgba(28,22,21,0.1)"/>
+    <rect x="630" y="72" width="340" height="26" rx="13" fill="rgba(28,22,21,0.06)"/>
+    <text x="800" y="90" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="rgba(28,22,21,0.45)" text-anchor="middle" letter-spacing="1.4">aurelia · botanical skincare</text>
+    <rect x="58" y="58" width="1484" height="884" rx="16" fill="none" stroke="rgba(28,22,21,0.1)"/><rect x="58" y="112" width="1484" height="830" rx="0" fill="#fbf8f4"/><rect x="58" y="112" width="1484" height="84" rx="0" fill="none"/><text x="114" y="166" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="24" font-weight="300" fill="#1c1615" text-anchor="start" letter-spacing="6">AURELIA</text><text x="1142" y="164" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="rgba(28,22,21,0.55)" text-anchor="start" letter-spacing="1.4">Shop</text><text x="1242" y="164" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="rgba(28,22,21,0.55)" text-anchor="start" letter-spacing="1.4">Ritual</text><text x="1342" y="164" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="rgba(28,22,21,0.55)" text-anchor="start" letter-spacing="1.4">Journal</text><text x="1442" y="164" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="rgba(28,22,21,0.55)" text-anchor="start" letter-spacing="1.4">About</text><line x1="114" y1="196" x2="1486" y2="196" stroke="rgba(28,22,21,0.1)" stroke-width="1"/><defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#cf9c8f"/>
+      <stop offset="1" stop-color="#e2c3ba"/>
+    </linearGradient>
+    <clipPath id="c3"><rect x="829.6800000000001" y="228" width="623.28" height="420" rx="4"/></clipPath>
+  </defs>
+  <g clip-path="url(#c3)">
+    <rect x="829.7" y="228" width="623.3" height="420" rx="4" fill="url(#g2)"/>
+    <ellipse cx="1211.7" cy="409.9" rx="135.3" ry="103.3" fill="rgba(185,108,91,0.3)"/><ellipse cx="1323.2" cy="513.1" rx="130.7" ry="140.6" fill="rgba(255,255,255,0.4)"/><ellipse cx="1164.8" cy="336.8" rx="143.9" ry="124.2" fill="rgba(185,108,91,0.3)"/>
+    <rect x="829.7" y="488.4" width="623.3" height="159.6" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g><text x="114" y="280" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#b96c5b" text-anchor="start" letter-spacing="4">BOTANICAL SKINCARE · EST. 2026</text><text x="114" y="380" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="84" font-weight="300" fill="#1c1615" text-anchor="start" letter-spacing="0">Skin, quietly</text><text x="114" y="468" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="84" font-weight="300" fill="#b96c5b" text-anchor="start" letter-spacing="0" font-style="italic">considered</text><rect x="114" y="512" width="454.1" height="9" rx="5" fill="rgba(28,22,21,0.22)"/><rect x="114" y="535" width="302.7" height="9" rx="5" fill="rgba(28,22,21,0.22)"/><rect x="114" y="576" width="216" height="56" rx="28" fill="#1c1615"/><text x="222" y="611" font-family="Jost, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#fbf8f4" text-anchor="middle" letter-spacing="1.6">Shop the ritual</text><defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#cf9c8f"/>
+      <stop offset="1" stop-color="#e2c3ba"/>
+    </linearGradient>
+    <clipPath id="c5"><rect x="114" y="688" width="323.5" height="190" rx="6"/></clipPath>
+  </defs>
+  <g clip-path="url(#c5)">
+    <rect x="114" y="688" width="323.5" height="190" rx="6" fill="url(#g4)"/>
+    <ellipse cx="277.7" cy="814.6" rx="62.3" ry="51.1" fill="rgba(185,108,91,0.3)"/><ellipse cx="254.4" cy="786.5" rx="55.5" ry="35.4" fill="rgba(255,255,255,0.4)"/><ellipse cx="253.2" cy="833.7" rx="103.8" ry="86.5" fill="rgba(185,108,91,0.3)"/>
+    <rect x="114" y="805.8" width="323.5" height="72.2" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g><rect x="114" y="898" width="213.5" height="10" rx="5" fill="rgba(28,22,21,0.35)"/><rect x="114" y="920" width="129.4" height="8" rx="4" fill="rgba(28,22,21,0.14)"/><defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#cf9c8f"/>
+      <stop offset="1" stop-color="#e2c3ba"/>
+    </linearGradient>
+    <clipPath id="c7"><rect x="463.5" y="688" width="323.5" height="190" rx="6"/></clipPath>
+  </defs>
+  <g clip-path="url(#c7)">
+    <rect x="463.5" y="688" width="323.5" height="190" rx="6" fill="url(#g6)"/>
+    <ellipse cx="651.7" cy="843.5" rx="88.3" ry="66.7" fill="rgba(185,108,91,0.3)"/><ellipse cx="600.1" cy="737.0" rx="101.2" ry="90.9" fill="rgba(255,255,255,0.4)"/><ellipse cx="661.5" cy="757.3" rx="53.0" ry="42.9" fill="rgba(185,108,91,0.3)"/>
+    <rect x="463.5" y="805.8" width="323.5" height="72.2" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g><rect x="463.5" y="898" width="213.5" height="10" rx="5" fill="rgba(28,22,21,0.35)"/><rect x="463.5" y="920" width="129.4" height="8" rx="4" fill="rgba(28,22,21,0.14)"/><defs>
+    <linearGradient id="g8" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#cf9c8f"/>
+      <stop offset="1" stop-color="#e2c3ba"/>
+    </linearGradient>
+    <clipPath id="c9"><rect x="813" y="688" width="323.5" height="190" rx="6"/></clipPath>
+  </defs>
+  <g clip-path="url(#c9)">
+    <rect x="813" y="688" width="323.5" height="190" rx="6" fill="url(#g8)"/>
+    <ellipse cx="957.2" cy="827.5" rx="98.2" ry="85.9" fill="rgba(185,108,91,0.3)"/><ellipse cx="1015.4" cy="771.5" rx="63.3" ry="39.8" fill="rgba(255,255,255,0.4)"/><ellipse cx="919.5" cy="800.0" rx="70.6" ry="49.2" fill="rgba(185,108,91,0.3)"/>
+    <rect x="813" y="805.8" width="323.5" height="72.2" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g><rect x="813" y="898" width="213.5" height="10" rx="5" fill="rgba(28,22,21,0.35)"/><rect x="813" y="920" width="129.4" height="8" rx="4" fill="rgba(28,22,21,0.14)"/><defs>
+    <linearGradient id="g10" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#cf9c8f"/>
+      <stop offset="1" stop-color="#e2c3ba"/>
+    </linearGradient>
+    <clipPath id="c11"><rect x="1162.5" y="688" width="323.5" height="190" rx="6"/></clipPath>
+  </defs>
+  <g clip-path="url(#c11)">
+    <rect x="1162.5" y="688" width="323.5" height="190" rx="6" fill="url(#g10)"/>
+    <ellipse cx="1295.4" cy="744.5" rx="59.1" ry="59.4" fill="rgba(185,108,91,0.3)"/><ellipse cx="1385.9" cy="791.7" rx="50.1" ry="54.0" fill="rgba(255,255,255,0.4)"/><ellipse cx="1351.9" cy="854.5" rx="59.1" ry="62.8" fill="rgba(185,108,91,0.3)"/>
+    <rect x="1162.5" y="805.8" width="323.5" height="72.2" rx="0" fill="rgba(28,22,21,0.05)"/>
+  </g><rect x="1162.5" y="898" width="213.5" height="10" rx="5" fill="rgba(28,22,21,0.35)"/><rect x="1162.5" y="920" width="129.4" height="8" rx="4" fill="rgba(28,22,21,0.14)"/>
+</svg>

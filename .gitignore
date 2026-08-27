@@ -1,0 +1,25 @@
+# dependencies
+node_modules
+
+# build output (GitHub Actions builds this; it is never committed)
+dist
+
+# vite / tooling caches
+.vite
+*.tsbuildinfo
+
+# local env files (never commit secrets)
+.env
+.env.*
+!.env.example
+*.local
+
+# editor / OS noise
+.DS_Store
+Thumbs.db
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# local scratch, not part of the site
+resume-session.txt

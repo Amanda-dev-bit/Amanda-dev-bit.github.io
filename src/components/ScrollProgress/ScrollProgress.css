@@ -1,0 +1,264 @@
+/* ============================================================
+   SCROLLPROGRESS
+   Two readouts of one number. --p (0..1) is written on both roots
+   from React and inherits down to the shapes; every rule below
+   reads it, none of them recalculate it.
+   ============================================================ */
+
+/* ---- the top rule -------------------------------------------- */
+
+.scrollprog__bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: calc(var(--z-header) + 1);
+  height: 2px;
+  pointer-events: none;
+  /* A whisper of a track, so the fill reads as a measure and not
+     as a stray line floating over the header. */
+  background: var(--line-soft);
+  opacity: 0;
+  transition: opacity var(--d-base) var(--e-out-quint);
+}
+
+.scrollprog__bar[data-active="true"] {
+  opacity: 1;
+}
+
+/* scaleX, never width: the fill is one composited transform. The
+   gradient compresses with it, so the full clay → gold sweep is
+   present at every length rather than creeping in at the end. */
+.scrollprog__fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 55%, transparent) 0%,
+    var(--accent) 45%,
+    var(--gold) 100%
+  );
+  transform: scaleX(var(--p, 0));
+  transform-origin: left center;
+  transition: transform var(--d-fast) var(--e-out-quint);
+}
+
+/* Promoted only while it is actually moving. */
+.scrollprog__bar[data-active="true"] .scrollprog__fill {
+  will-change: transform;
+}
+
+/* ---- the dial ------------------------------------------------- */
+
+.scrollprog__ring {
+  position: fixed;
+  right: var(--sp-5);
+  bottom: var(--sp-5);
+  z-index: calc(var(--z-header) + 1);
+  display: grid;
+  place-items: center;
+  /* 52px, comfortably past the 44px minimum without becoming a
+     blot on the corner of an editorial page. */
+  width: 3.25rem;
+  height: 3.25rem;
+  color: var(--text);
+  /* Translucent ground + hairline so it reads over bone, shell and
+     the deep inset sections alike, in either theme. */
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+  backdrop-filter: blur(12px) saturate(1.15);
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition:
+    opacity var(--d-slow) var(--e-out-expo),
+    transform var(--d-slow) var(--e-out-expo),
+    color var(--d-base) var(--e-out-quint),
+    border-color var(--d-base) var(--e-out-quint),
+    box-shadow var(--d-slow) var(--e-out-expo);
+}
+
+/* Carried on a class + attribute so the global :focus-visible rule
+   in base.css (which sets its own radius) cannot square the corners
+   off, whichever way the stylesheets end up ordered at build time. */
+.scrollprog__ring[data-visible] {
+  border-radius: var(--r-full);
+}
+
+.scrollprog__ring[data-visible="true"] {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Deliberate hover: the hairline warms, the shadow deepens, the
+   whole dial lifts a few pixels. */
+.scrollprog__ring[data-visible="true"]:focus-visible {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 52%, transparent);
+  box-shadow: var(--shadow-md);
+  transform: scale(1) translate3d(0, -3px, 0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scrollprog__ring[data-visible="true"]:hover {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 52%, transparent);
+    box-shadow: var(--shadow-md);
+    transform: scale(1) translate3d(0, -3px, 0);
+  }
+}
+
+.scrollprog__ring[data-visible="true"]:active {
+  transform: scale(0.94);
+  transition-duration: var(--d-fast);
+}
+
+/* ---- dial strokes ---------------------------------------------- */
+
+.scrollprog__dial {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  /* Start the sweep at twelve o'clock. */
+  transform: rotate(-90deg);
+}
+
+.scrollprog__track {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+/* pathLength="100" on the circle turns the dash pair into
+   percentages, so the offset is simply the distance still to go. */
+.scrollprog__sweep {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: calc(100 - var(--p, 0) * 100);
+  transition: stroke-dashoffset var(--d-fast) var(--e-out-quint);
+}
+
+.scrollprog__stop-a { stop-color: var(--accent); }
+.scrollprog__stop-b { stop-color: var(--gold); }
+
+/* ---- arrow ------------------------------------------------------ */
+
+/* The arrow leaves through the top of its own clipped box while a
+   second one rises into the gap behind it. */
+.scrollprog__glyph {
+  position: relative;
+  display: grid;
+  width: 1.15rem;
+  height: 1.15rem;
+  overflow: hidden;
+}
+
+.scrollprog__arrow {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.scrollprog__arrow--ghost {
+  transform: translate3d(0, 130%, 0);
+}
+
+.scrollprog__ring:focus-visible .scrollprog__arrow {
+  transform: translate3d(0, -130%, 0);
+}
+
+.scrollprog__ring:focus-visible .scrollprog__arrow--ghost {
+  transform: translate3d(0, 0, 0);
+  transition-delay: 60ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scrollprog__ring:hover .scrollprog__arrow {
+    transform: translate3d(0, -130%, 0);
+  }
+
+  .scrollprog__ring:hover .scrollprog__arrow--ghost {
+    transform: translate3d(0, 0, 0);
+    transition-delay: 60ms;
+  }
+}
+
+/* ---- out of the way --------------------------------------------- */
+
+/* While the preloader or a menu holds the scroll, neither readout
+   has anything to say. */
+body[data-scroll-locked] .scrollprog__bar,
+body[data-scroll-locked] .scrollprog__ring {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Tuck the dial in a little on the narrowest screens. */
+@media (max-width: 30rem) {
+  .scrollprog__ring {
+    right: var(--sp-4);
+    bottom: var(--sp-4);
+    width: 2.9rem;
+    height: 2.9rem;
+  }
+}
+
+/* ---- reduced motion ---------------------------------------------
+   No easing anywhere: both readouts jump straight to their value,
+   the dial appears at full size, the arrow never travels.
+   ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollprog__bar,
+  .scrollprog__fill,
+  .scrollprog__sweep,
+  .scrollprog__ring,
+  .scrollprog__arrow {
+    transition: none;
+  }
+
+  .scrollprog__bar[data-active="true"] .scrollprog__fill {
+    will-change: auto;
+  }
+
+  .scrollprog__ring,
+  .scrollprog__ring[data-visible="true"],
+  .scrollprog__ring[data-visible="true"]:focus-visible,
+  .scrollprog__ring[data-visible="true"]:active {
+    transform: none;
+  }
+
+  /* Matched selector-for-selector against the focus rules above:
+     equal specificity, later in the file, so they lose. */
+  .scrollprog__arrow,
+  .scrollprog__ring:focus-visible .scrollprog__arrow,
+  .scrollprog__ring:focus-visible .scrollprog__arrow--ghost {
+    transform: none;
+  }
+
+  /* With nothing to slide, the understudy would only double the
+     stroke weight of the arrow it sits behind. */
+  .scrollprog__arrow--ghost {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (hover: hover) and (pointer: fine) {
+  .scrollprog__ring[data-visible="true"]:hover {
+    transform: none;
+  }
+
+  .scrollprog__ring:hover .scrollprog__arrow,
+  .scrollprog__ring:hover .scrollprog__arrow--ghost {
+    transform: none;
+  }
+}

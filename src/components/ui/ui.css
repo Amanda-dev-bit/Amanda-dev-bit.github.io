@@ -1,0 +1,320 @@
+/* ============================================================
+   UI PRIMITIVES
+   ============================================================ */
+
+/* ---- MaskText / SplitText ---------------------------------- */
+.mask-text {
+  display: block;
+}
+
+.split-text {
+  display: inline-block;
+}
+
+.section-head__title {
+  max-width: 18ch;
+}
+
+.section-head--center .section-head__title {
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+.section-head__lead {
+  margin-top: var(--sp-2);
+}
+
+.section-head--center .section-head__lead {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* ---- Magnetic ---------------------------------------------- */
+.magnetic {
+  display: inline-block;
+  transform: translate3d(var(--mx, 0), var(--my, 0), 0);
+  transition: transform var(--d-slow) var(--e-out-expo);
+  will-change: transform;
+}
+
+/* ---- ActionLink -------------------------------------------- */
+.action-wrap {
+  display: inline-block;
+}
+
+.action {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  padding: 1.05em 1.9em;
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  border-radius: var(--r-full);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color var(--d-base) var(--e-out-quint),
+    border-color var(--d-base) var(--e-out-quint),
+    box-shadow var(--d-slow) var(--e-out-expo),
+    transform var(--d-base) var(--e-out-quint);
+}
+
+.action--sm { padding: 0.85em 1.5em; font-size: var(--fs-micro); }
+.action--lg { padding: 1.25em 2.4em; font-size: var(--fs-body); letter-spacing: var(--ls-wide); }
+
+/* The wash that sweeps up on hover. */
+.action::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translate3d(0, 101%, 0);
+  transition: transform var(--d-slow) var(--e-out-expo);
+}
+
+.action:hover::before,
+.action:focus-visible::before {
+  transform: translate3d(0, 0, 0);
+}
+
+.action--solid {
+  /* --text-contrast, not --text-invert: in the dark theme --text-invert
+     is ALSO light, which made this button cream on cream. */
+  color: var(--text-contrast);
+  background: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.action--solid::before { background: var(--accent); }
+.action--solid:hover,
+.action--solid:focus-visible {
+  color: var(--on-accent);
+  box-shadow: var(--shadow-accent);
+}
+
+.action--outline {
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+}
+.action--outline::before { background: var(--text); }
+.action--outline:hover,
+.action--outline:focus-visible {
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.action--ghost {
+  padding-inline: 0;
+  color: var(--text);
+  border-radius: 0;
+}
+.action--ghost::before { display: none; }
+.action--ghost::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.55em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+.action--ghost:hover::after,
+.action--ghost:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.action--ghost:hover { color: var(--accent); }
+
+.action__label {
+  position: relative;
+  white-space: nowrap;
+}
+
+/* Arrow that slides out and a duplicate that slides in behind it. */
+.action__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1.1em;
+  height: 1.1em;
+  overflow: hidden;
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+.action__icon-inner {
+  grid-area: 1 / 1;
+  transition: transform var(--d-base) var(--e-out-expo);
+}
+
+.action__icon-inner--ghost {
+  transform: translate3d(-140%, 0, 0);
+}
+
+.action:hover .action__icon-inner,
+.action:focus-visible .action__icon-inner {
+  transform: translate3d(140%, 0, 0);
+}
+.action:hover .action__icon-inner--ghost,
+.action:focus-visible .action__icon-inner--ghost {
+  transform: translate3d(0, 0, 0);
+  transition-delay: 60ms;
+}
+
+.action:active { transform: scale(0.975); }
+
+/* ---- Badge -------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.38em 0.9em 0.38em 0.75em;
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  color: var(--text-muted);
+  background: var(--surface);
+  backdrop-filter: blur(6px);
+}
+
+.badge__dot {
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.badge--live {
+  color: var(--ok);
+  border-color: var(--ok-line);
+  background: var(--ok-wash);
+}
+
+.badge--live .badge__dot {
+  position: relative;
+}
+.badge--live .badge__dot::after {
+  content: "";
+  position: absolute;
+  inset: -0.35em;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  animation: pulseRing 2.4s var(--e-out-expo) infinite;
+}
+
+.badge--concept {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  background: var(--accent-wash);
+}
+
+.badge--study {
+  color: var(--gold);
+  border-color: color-mix(in srgb, var(--gold) 40%, transparent);
+  background: color-mix(in srgb, var(--gold) 10%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge--live .badge__dot::after { animation: none; }
+}
+
+/* ---- Ornament ----------------------------------------------- */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-5);
+  color: var(--line-strong);
+}
+
+.ornament__rule {
+  flex: 1;
+  max-width: 7rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+}
+
+.ornament__mark {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--accent-display);
+  animation: spinSlow 24s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ornament__mark { animation: none; }
+}
+
+/* ---- Figure -------------------------------------------------- */
+.figure {
+  display: block;
+  margin: 0;
+}
+
+.figure__frame {
+  position: relative;
+  display: block;
+  aspect-ratio: var(--ratio, 16 / 10);
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow-sm);
+  /* The frame itself unrolls into view. */
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--d-reveal) var(--e-out-expo) var(--reveal-delay, 0ms),
+              box-shadow var(--d-slow) var(--e-out-expo);
+}
+
+.figure[data-inview="true"] .figure__frame {
+  clip-path: inset(0 0 0 0);
+}
+
+.figure__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform calc(var(--d-reveal) * 1.3) var(--e-out-expo) var(--reveal-delay, 0ms);
+}
+
+.figure[data-inview="true"] .figure__img {
+  transform: scale(1);
+}
+
+.figure__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, transparent 40%, rgba(28, 22, 21, 0.14));
+  opacity: 0;
+  transition: opacity var(--d-slow) var(--e-out-expo);
+  pointer-events: none;
+}
+
+.figure:hover .figure__veil { opacity: 1; }
+
+.figure__caption {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  letter-spacing: 0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .figure__frame { clip-path: none; }
+  .figure__img { transform: none; }
+  .magnetic { transform: none; }
+}
