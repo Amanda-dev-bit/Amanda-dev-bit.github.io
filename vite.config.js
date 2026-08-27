@@ -22,10 +22,18 @@ function socialUrls() {
       handler(html) {
         const site = (process.env.VITE_SITE_URL || '').trim().replace(/\/+$/, '')
         if (!site) return html.replace(/^\s*<!--SOCIAL_URLS-->\r?\n?/m, '')
+        /* The whole image block lives here, not just the URL. The width,
+           height, alt and twitter:card tags describe an image, so leaving
+           them in the static head meant a local build advertised a large
+           image card with no image attached. */
         const tags = [
           `<link rel="canonical" href="${site}/" />`,
           `<meta property="og:url" content="${site}/" />`,
           `<meta property="og:image" content="${site}/og.png" />`,
+          `<meta property="og:image:width" content="1200" />`,
+          `<meta property="og:image:height" content="630" />`,
+          `<meta property="og:image:alt" content="Chukwujekwu Amanda, Web Developer and UI/UX Designer, Lagos, Nigeria." />`,
+          `<meta name="twitter:card" content="summary_large_image" />`,
           `<meta name="twitter:image" content="${site}/og.png" />`,
         ].join('\n    ')
         return html.replace('<!--SOCIAL_URLS-->', tags)
@@ -47,7 +55,19 @@ export default defineConfig({
     assetsInlineLimit: 2048,
     rollupOptions: {
       output: {
-        manualChunks: { react: ['react', 'react-dom'] },
+        /* Match on the resolved module path, not the bare specifier.
+           'react-dom' resolves to a tiny index shim, so listing it by name
+           left the ~180KB renderer and the scheduler in the app chunk and
+           the vendor split saved almost nothing. */
+        manualChunks(id) {
+          if (
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/scheduler/')
+          ) {
+            return 'react'
+          }
+        },
       },
     },
   },

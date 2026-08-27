@@ -1,0 +1,28 @@
+# Pinned action versions go stale quietly. Because deploy.yml only runs
+# on a push to main, the first sign of a deprecated action is usually a
+# failed deploy on a site that was assumed to be fine.
+#
+# Monthly and grouped on purpose: four direct dependencies, no server and
+# no secrets, so weekly individual pull requests would be pure noise.
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns: ['*']
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: deps
+    groups:
+      all:
+        patterns: ['*']

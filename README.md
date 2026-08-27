@@ -1,5 +1,11 @@
 # Chukwujekwu Amanda | Portfolio
 
+**Live site: _add the URL here after the first deploy_** (Actions prints it, and it is
+shown under Settings → Pages). Put the same URL in the repo's About → Website field
+so it appears in the sidebar.
+
+![The portfolio, Chukwujekwu Amanda, Web Developer and UI/UX Designer](public/og.png)
+
 A portfolio site for **Chukwujekwu Amanda Chimdiuso**, Web Developer & UI/UX Designer,
 Lagos, Nigeria.
 
@@ -99,18 +105,29 @@ in them; a well-presented concept beats an overclaimed one.
 The site ships with generated SVG interface mockups so it looks finished on day one.
 They are **placeholders**, swap them for real screenshots as you build things out:
 
-- Project previews: `public/projects/*.svg`
-- Your photo: `public/portrait-hero.svg` and `public/portrait-about.svg`
+- Project previews: `public/projects/*.svg` (still generated placeholders)
+- Hero photo: `public/amanda.jpeg`, referenced in `src/components/Hero/Hero.jsx`
+- About photo: `public/amanda2.jpeg`, referenced in `src/components/About/About.jsx`
 
-Drop a `.png` or `.jpg` in the same folder and point the data file at it. The layout
-does not care about the file type. To regenerate the placeholders, run `npm run assets`
-(the generator is `scripts/generate-previews.mjs`).
+The two photographs are real, the project previews are not. To swap a project preview,
+drop a `.png` or `.jpg` into `public/projects/` and point `src/data/projects.js` at it;
+the layout does not care about the file type.
+
+To swap a portrait, replace the file in `public/` and update the `width` and `height`
+attributes on the `<img>` to the new pixel dimensions. Both plates are `aspect-ratio:
+4 / 5` with `object-fit: cover`, so any shape works, it just crops.
+
+`npm run assets` regenerates the project placeholders only; it no longer touches the
+portraits. The generator is `scripts/generate-previews.mjs`.
 
 ---
 
 ## Architecture
 
 ```
+.github/workflows/
+  deploy.yml               builds and publishes to GitHub Pages on push to main
+  ci.yml                   builds pull requests, checks the output is complete
 src/
   main.jsx                 entry
   App.jsx                  page composition
@@ -130,9 +147,13 @@ src/
                            Ornament, Figure
     Preloader/ Cursor/ ScrollProgress/ Header/ Hero/
     About/ Craft/ Work/ Journey/ Contact/ Footer/
+    Contact/ContactForm.jsx  the Formspree enquiry form
 data/                      all editable content
 public/                    static assets served as-is
+scripts/                   generates the placeholder project artwork
 legacy/                    the original single-file site, kept for reference
+vite.config.js             base path + the social-tag injection
+.nvmrc                     Node version, kept in step with the workflows
 ```
 
 Each component owns exactly two files, `Name.jsx` and `Name.css`, and prefixes its
@@ -255,3 +276,12 @@ variables so the social tags are still emitted.
 
 The original `index.html`, `styles.css` and `script.js` are preserved untouched in
 `legacy/`. Nothing in the new build depends on them.
+
+---
+
+## Reuse
+
+Copyright 2026 Chukwujekwu Amanda Chimdiuso.
+
+The code is here to be read and learned from. The writing, the photographs and the CV
+are not licensed for reuse. If you want to build on the code itself, please ask.

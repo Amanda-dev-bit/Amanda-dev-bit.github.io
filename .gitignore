@@ -23,3 +23,5 @@ Thumbs.db
 
 # local scratch, not part of the site
 resume-session.txt
+.tmp*/
+.scratch/
