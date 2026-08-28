@@ -1,3 +1,6 @@
+import { projects } from './projects.js'
+import { disciplines, toolbelt } from './skills.js'
+
 /* ============================================================
    SITE / PROFILE DATA
    Everything here comes from Amanda's CV. Edit this file to
@@ -89,12 +92,69 @@ export const socials = [
   { id: 'instagram', label: 'Instagram', handle: 'Add your profile', href: '' },
 ]
 
-/* Keep these tied to something on the page or on the CV. A number a
-   recruiter cannot check is worse than no number at all, `value` is
-   the count of projects actually listed in data/projects.js, and
-   `disciplines` is the count in data/skills.js. Update them together. */
+/* ============================================================
+   THE COUNTED STRIP
+
+   These are counted from the data, never typed in. The old version
+   hard-coded 6 projects and drifted the moment a project was added
+   or removed, which is exactly the kind of number a recruiter checks
+   against the page and finds wrong.
+
+   Add or delete a project in data/projects.js, a discipline or a tool
+   in data/skills.js, and the figures, the singular/plural wording and
+   the line underneath all follow on their own.
+   ============================================================ */
+
+const plural = (n, one, many) => (n === 1 ? one : many)
+
+/* "a, b and c" */
+function joinList(items) {
+  if (items.length <= 1) return items[0] ?? ''
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
+}
+
+/* The line under the number says what the projects actually are, so it
+   has to follow the data too. Claiming "concepts and build studies"
+   when the only entry is a build study is a small untruth, and small
+   untruths are the ones that get noticed. */
+function describeProjects() {
+  if (!projects.length) return 'More on the way'
+
+  if (projects.length === 1) {
+    const single = {
+      live: 'Built for a client',
+      concept: 'A design concept',
+      study: 'A build study',
+    }
+    return single[projects[0].status] ?? 'One project'
+  }
+
+  const kinds = []
+  if (projects.some((p) => p.status === 'live')) kinds.push('client work')
+  if (projects.some((p) => p.status === 'concept')) kinds.push('concepts')
+  if (projects.some((p) => p.status === 'study')) kinds.push('build studies')
+
+  const sentence = joinList(kinds)
+  return sentence ? sentence[0].toUpperCase() + sentence.slice(1) : 'Selected work'
+}
+
 export const stats = [
-  { value: 6, suffix: '', label: 'Selected projects', note: 'Concepts and build studies' },
-  { value: 4, suffix: '', label: 'Core disciplines', note: 'Design through deployment' },
-  { value: 13, suffix: '', label: 'Tools in regular use', note: 'Figma through to Render' },
+  {
+    value: projects.length,
+    suffix: '',
+    label: plural(projects.length, 'Selected project', 'Selected projects'),
+    note: describeProjects(),
+  },
+  {
+    value: disciplines.length,
+    suffix: '',
+    label: plural(disciplines.length, 'Core discipline', 'Core disciplines'),
+    note: 'Design through deployment',
+  },
+  {
+    value: toolbelt.length,
+    suffix: '',
+    label: plural(toolbelt.length, 'Tool in regular use', 'Tools in regular use'),
+    note: 'Figma through to Render',
+  },
 ]
