@@ -25,3 +25,7 @@ Thumbs.db
 resume-session.txt
 .tmp*/
 .scratch/
+
+# my own notes, kept on this machine and out of the public repo
+HOSTING.md
+DOCS.md
