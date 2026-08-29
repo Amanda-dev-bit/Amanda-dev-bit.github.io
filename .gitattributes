@@ -1,0 +1,18 @@
+# Normalise line endings. The site is authored on Windows but built on
+# Linux in CI, so without this every file looks modified depending on
+# which machine last touched it.
+* text=auto eol=lf
+
+# Binary assets: never convert these.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+
+# Keep the repo's language stats about the site, not the archived copy.
+legacy/** linguist-vendored

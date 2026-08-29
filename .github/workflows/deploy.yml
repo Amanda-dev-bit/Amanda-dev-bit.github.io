@@ -1,0 +1,81 @@
+# ============================================================
+# Build the site and publish it to GitHub Pages.
+#
+# ONE-TIME SETUP, or nothing here will work:
+#   Repo -> Settings -> Pages -> Build and deployment -> Source
+#   must be set to "GitHub Actions" (not "Deploy from a branch").
+#
+# After that every push to main redeploys. There is no gh-pages
+# branch and dist/ is never committed: the built site is passed
+# straight from the build job to the deploy job as an artifact.
+# ============================================================
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Lets you redeploy by hand from the Actions tab without a new commit.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race. Queue instead of cancelling, so a
+# run that is already publishing is allowed to finish.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          # Vite 7 needs ^20.19 || >=22.12. Keep this in step with .nvmrc.
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Build
+        env:
+          # configure-pages resolves the real published URL, including a
+          # custom domain if one is set. The Vite config turns this into
+          # the absolute canonical and og:image tags that social crawlers
+          # need; relative URLs are ignored by every one of them.
+          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: npm run build
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+          # v4 stopped bundling dotfiles and v5 defaults this to false,
+          # which would silently drop dist/.nojekyll from the artifact.
+          include-hidden-files: true
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
