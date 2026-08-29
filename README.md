@@ -22,4 +22,4 @@ rewrite my bio without going near a component.
 Copyright 2026 Chukwujekwu Amanda Chimdiuso.
 
 The code is here to be read. The writing, the photographs and my CV are not for
-reuse. If you want to build on the code, ask me.
+reuse. If you want to build on the code, ask me 😊.
