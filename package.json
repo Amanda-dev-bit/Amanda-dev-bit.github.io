@@ -14,7 +14,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "assets": "node scripts/generate-previews.mjs",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "react": "^19.1.1",
