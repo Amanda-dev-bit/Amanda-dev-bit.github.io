@@ -24,7 +24,7 @@ import { disciplines, toolbelt } from './skills.js'
    quietly dropped.
    ============================================================ */
 
-export const formspreeId = ''
+export const formspreeId = 'meaakwdk'
 
 export const profile = {
   firstName: 'Chukwujekwu',
